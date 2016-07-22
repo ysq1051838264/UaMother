@@ -16,7 +16,25 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 android:fitsSystemWindows="true"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UaMother"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_gravity="center"
+                    android:id="@+id/toolbar_title"/>
+
+            <TextView
+                    android:layout_gravity="end"
+                    android:text="关于我们"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </android.support.v7.widget.Toolbar>
 
         <TextView
                 android:id="@+id/id_tv_content"

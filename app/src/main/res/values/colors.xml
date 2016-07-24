@@ -5,4 +5,7 @@
     <color name="status_bar_color">@color/primary_dark</color>
 
     <color name="white">#FFFFFFFF</color>
+
+    <color name="button_red">#F27863</color>
+
 </resources>

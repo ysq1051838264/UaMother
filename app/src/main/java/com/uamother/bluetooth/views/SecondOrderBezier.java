@@ -59,10 +59,10 @@ public class SecondOrderBezier extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mStartPointX = w / 30;
-        mStartPointY = h - 10;
+        mStartPointY = h - 20;
 
         mEndPointX = w / 30 * 29;
-        mEndPointY = h - 10;
+        mEndPointY = h - 20;
     }
 
     @Override

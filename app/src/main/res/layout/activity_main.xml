@@ -40,7 +40,7 @@
         <com.uamother.bluetooth.views.SecondOrderBezier
                 android:layout_width="match_parent"
                 android:background="@color/primary"
-                android:layout_height="140dp"/>
+                android:layout_height="160dp"/>
 
         <TextView
                 android:layout_marginStart="20dp"

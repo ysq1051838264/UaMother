@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="3dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        <View
+                android:id="@+id/dot_zero"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/dot_focused"/>
+
+        <View
+                android:id="@+id/dot_one"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/dot_normal"/>
+
+        <View
+                android:id="@+id/dot_two"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/dot_normal"/>
+
+        <View
+                android:id="@+id/dot_three"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/dot_normal"/>
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/startBtn"
+            android:layout_gravity="bottom|center"
+            android:gravity="center"
+            android:text="立即体验"
+            android:visibility="gone"
+            android:layout_marginBottom="50dp"
+            android:layout_width="140dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/guide_start_button_bg"
+            android:layout_height="40dp"/>
+
+</FrameLayout>

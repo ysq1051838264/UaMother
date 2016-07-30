@@ -1,6 +1,5 @@
 package com.uamother.bluetooth.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -11,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.adapter.GuideAdapter;
+import com.uamother.bluetooth.utils.CacheUtil;
+import com.uamother.bluetooth.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,12 +45,17 @@ public class GuideActivity extends AppCompatActivity implements
     private GuideAdapter adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
         initView();
         initData();
     }
+
+   /* @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }*/
 
     private void initView() {
         vp = (ViewPager) findViewById(R.id.vp);
@@ -138,7 +144,8 @@ public class GuideActivity extends AppCompatActivity implements
 
     public void turnTo() {
         if (currentIndex == imageIds.length - 1) {
-            startActivity(new Intent().setClass(this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
+            CacheUtil.cacheBooleanData(this, Constants.IS_OPEN_GUIDE, false);
             finish();
         }
     }

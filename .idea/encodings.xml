@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/AlmostRippleDrawable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/AnimatorCompat.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/AnimatorCompatV11.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/DiscreteSeekBar.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/Marker.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/MarkerDrawable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/PopupIndicator.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/SeekBarCompat.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/SeekBarCompatDontCrash.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/StateDrawable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/ThumbDrawable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/uamother/bluetooth/other/TrackRectDrawable.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/color/dsb_progress_color_list.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/color/dsb_ripple_color_list.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/color/dsb_track_color_list.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bluetooth.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/values/attrs.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

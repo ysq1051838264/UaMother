@@ -6,6 +6,8 @@
 
     <color name="white">#FFFFFFFF</color>
 
+    <color name="black">#3c4f5e</color>
+
     <color name="button_red">#F27863</color>
 
 </resources>

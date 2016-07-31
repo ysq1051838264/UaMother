@@ -10,4 +10,8 @@
 
     <color name="button_red">#F27863</color>
 
+    <drawable name="red">#f00</drawable>
+    <drawable name="green">#0f0</drawable>
+    <drawable name="gray">#ccc</drawable>
+
 </resources>

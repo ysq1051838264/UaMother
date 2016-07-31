@@ -79,7 +79,7 @@
 
         <LinearLayout
                 android:orientation="horizontal"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -87,6 +87,8 @@
             <TextView
                     android:id="@+id/oneTv"
                     android:text="一"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -94,6 +96,8 @@
             <TextView
                     android:id="@+id/twoTv"
                     android:text="二"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -101,6 +105,8 @@
             <TextView
                     android:id="@+id/threeTv"
                     android:text="三"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -108,6 +114,8 @@
             <TextView
                     android:id="@+id/fourTv"
                     android:text="四"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -115,6 +123,8 @@
             <TextView
                     android:id="@+id/fiveTv"
                     android:text="五"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -122,6 +132,8 @@
             <TextView
                     android:id="@+id/sixTv"
                     android:text="六"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -129,6 +141,8 @@
             <TextView
                     android:id="@+id/sevenTv"
                     android:text="七"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -136,6 +150,8 @@
             <TextView
                     android:id="@+id/eightTv"
                     android:text="八"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -143,6 +159,8 @@
             <TextView
                     android:id="@+id/nineTv"
                     android:text="九"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

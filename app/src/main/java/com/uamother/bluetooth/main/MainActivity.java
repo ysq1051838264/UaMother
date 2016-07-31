@@ -1,11 +1,14 @@
 package com.uamother.bluetooth.main;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
 import com.uamother.bluetooth.utils.StatusBarCompat;
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //关于
     TextView aboutTv;
+    Button saveBtn;
 
     //吸奶频率，舒适度，亲和力的显示值
     TextView frequencyTv;
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void initData() {
         orderBezier = (SecondOrderBezier) findViewById(R.id.orderBezier);
+
+        saveBtn = (Button) findViewById(R.id.saveBtn);
 
         frequencyBar = (DiscreteSeekBar) findViewById(R.id.discrete1);
         comfortBar = (DiscreteSeekBar) findViewById(R.id.discrete2);
@@ -171,8 +177,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gradeLevel = tIndex;
         for (int i = 0; i < 9; i++) {
             textViews[i].setBackgroundResource(R.drawable.shape_circle_background2);
+            textViews[i].setTextColor(Color.BLACK);
         }
         textViews[tIndex].setBackgroundResource(R.drawable.shape_circle_background);
+        textViews[tIndex].setTextColor(Color.WHITE);
 
         handlerViewMessage(tIndex);
     }

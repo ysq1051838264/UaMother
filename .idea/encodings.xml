@@ -18,8 +18,13 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/color/dsb_ripple_color_list.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/color/dsb_track_color_list.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bluetooth.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/selector_circle_button.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/shape_circle_background.xml" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/shape_circle_background2.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/values/attrs.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

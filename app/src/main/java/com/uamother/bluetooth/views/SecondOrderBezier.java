@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import com.uamother.bluetooth.utils.UIUtils;
 
 /**
  * 二阶贝塞尔曲线
@@ -28,7 +29,14 @@ public class SecondOrderBezier extends View {
     private float mEndPointX;
     private float mEndPointY;
 
+    private float height;
+    private float width;
+
     private Path mPath = new Path();
+
+    int OpenPumTimeArray[] = {59, 66, 73, 88, 96, 103, 110, 118, 125, 133, 140}; /* OpenPumTimeArray*5  */
+    int StopPumTimeArray[] = {123, 130, 135, 141, 147, 156, 163, 169, 175, 184, 192};/* StopPumTimeArray*5  */
+    int PWMDutyArray[] = {92, 104, 114, 137, 142, 152, 162, 172, 182, 197, 205};
 
     public SecondOrderBezier(Context context) {
         super(context);
@@ -58,11 +66,15 @@ public class SecondOrderBezier extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mStartPointX = w / 30;
-        mStartPointY = h - 50;
+        mStartPointX = w / 20;
 
-        mEndPointX = w / 30 * 29;
-        mEndPointY = h - 50;
+        mStartPointY = h - 20;
+
+        mEndPointX = w / 20 * 19;
+        mEndPointY = h - 20;
+
+        height = h - 40;
+        width = w / 15;
     }
 
     @Override
@@ -72,31 +84,24 @@ public class SecondOrderBezier extends View {
         mPath.moveTo(mStartPointX, mStartPointY);
         // 辅助点
         canvas.drawPoint(mAuxiliaryX, mAuxiliaryY, mPaintAuxiliary);
-        canvas.drawText("控制点", mAuxiliaryX, mAuxiliaryY, mPaintAuxiliaryText);
-        canvas.drawText("起始点", mStartPointX, mStartPointY, mPaintAuxiliaryText);
-        canvas.drawText("终止点", mEndPointX, mEndPointY, mPaintAuxiliaryText);
-        // 辅助线
-        canvas.drawLine(mStartPointX, mStartPointY, mAuxiliaryX, mAuxiliaryY, mPaintAuxiliary);
-        canvas.drawLine(mEndPointX, mEndPointY, mAuxiliaryX, mAuxiliaryY, mPaintAuxiliary);
+
         // 二阶贝塞尔曲线
         mPath.quadTo(mAuxiliaryX, mAuxiliaryY, mEndPointX, mEndPointY);
         canvas.drawPath(mPath, mPaintBezier);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_MOVE:
-                mAuxiliaryX = event.getX();
-                mAuxiliaryY = event.getY();
-                invalidate();
-        }
-        return true;
-    }
+    public void editAuxiliary(int frequency, int comfort, int affinity, int gradeLevel) {
+        int a = OpenPumTimeArray[gradeLevel + 2] - OpenPumTimeArray[gradeLevel];
+        int b = StopPumTimeArray[gradeLevel + 2] - StopPumTimeArray[gradeLevel];
+        int c = PWMDutyArray[gradeLevel + 2] - PWMDutyArray[gradeLevel];
 
-    public void editAuxiliary(int x, int y) {
-        mAuxiliaryX = x;
-        mAuxiliaryY = y;
+//        mAuxiliaryX = (mEndPointX - mStartPointX) / (a + b) * (frequency - OpenPumTimeArray[gradeLevel] + comfort - StopPumTimeArray[gradeLevel]);
+
+        mAuxiliaryX = ((mEndPointX - mStartPointX) /2) +
+                (((mEndPointX - mStartPointX) /2) /a * (frequency - OpenPumTimeArray[gradeLevel]) - ((mEndPointX - mStartPointX) /2) /a *(comfort - StopPumTimeArray[gradeLevel]));
+
+        mAuxiliaryY = -(height / c * (affinity - PWMDutyArray[gradeLevel]));
+
         invalidate();
     }
 

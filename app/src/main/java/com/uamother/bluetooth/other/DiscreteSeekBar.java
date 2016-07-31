@@ -164,14 +164,22 @@ public class DiscreteSeekBar extends View {
         mMirrorForRtl = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_mirrorForRtl, mMirrorForRtl);
         mAllowTrackClick = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_allowTrackClickToDrag, mAllowTrackClick);
         mIndicatorPopupEnabled = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_indicatorPopupEnabled, mIndicatorPopupEnabled);
-        mTrackHeight = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_trackHeight, (int) (1 * density));
-        mScrubberHeight = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_scrubberHeight, (int) (4 * density));
-        int thumbSize = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_thumbSize, (int) (density * ThumbDrawable.DEFAULT_SIZE_DP));
+
+        //背景的高度
+        mTrackHeight = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_trackHeight, (int) (4 * density));
+
+        //拉长的高度
+        mScrubberHeight = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_scrubberHeight, (int) (5 * density));
+
+        //定在那里圆的大小
+        int thumbSize = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_thumbSize, (int) (density * 15));
+
         int separation = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_indicatorSeparation,
                 (int) (SEPARATION_DP * density));
 
         //Extra pixels for a minimum touch area of 32dp
         int touchBounds = (int) (density * 32);
+        //按下去时候，圆的大小
         mAddedTouchBounds = Math.max(0, (touchBounds - thumbSize) / 2);
 
         int indexMax = R.styleable.DiscreteSeekBar_dsb_max;
@@ -209,6 +217,7 @@ public class DiscreteSeekBar extends View {
         mIndicatorFormatter = a.getString(R.styleable.DiscreteSeekBar_dsb_indicatorFormatter);
 
         ColorStateList trackColor = a.getColorStateList(R.styleable.DiscreteSeekBar_dsb_trackColor);
+
         ColorStateList progressColor = a.getColorStateList(R.styleable.DiscreteSeekBar_dsb_progressColor);
         ColorStateList rippleColor = a.getColorStateList(R.styleable.DiscreteSeekBar_dsb_rippleColor);
         boolean editMode = isInEditMode();

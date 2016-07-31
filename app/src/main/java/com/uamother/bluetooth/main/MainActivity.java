@@ -9,10 +9,36 @@ import android.widget.TextView;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
 import com.uamother.bluetooth.utils.StatusBarCompat;
+import com.uamother.bluetooth.views.SecondOrderBezier;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    int OpenPumTimeArray[] = {59, 66, 73, 88, 96, 103, 110, 118, 125, 133, 140}; /* OpenPumTimeArray*5  */
+    int StopPumTimeArray[] = {123, 130, 135, 141, 147, 156, 163, 169, 175, 184, 192};/* StopPumTimeArray*5  */
+    int PWMDutyArray[] = {92, 104, 114, 137, 142, 152, 162, 172, 182, 197, 205};
+
+    //关于
     TextView aboutTv;
+
+    //吸奶频率，舒适度，亲和力的显示值
+    TextView frequencyTv;
+    TextView comfortTv;
+    TextView affinityTv;
+
+    SecondOrderBezier orderBezier;
+
+    //缺省设定
+    TextView[] textViews = new TextView[9];
+
+    //吸奶频率，舒适度，亲和力
+    DiscreteSeekBar frequencyBar;
+    DiscreteSeekBar comfortBar;
+    DiscreteSeekBar affinityBar;
+
+    int frequency = 0;
+    int comfort = 0;
+    int affinity = 0;
+    int gradeLevel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +51,154 @@ public class MainActivity extends AppCompatActivity {
 
         StatusBarCompat.compat(this);
 
+        initData();
+    }
+
+    public void initData() {
+        orderBezier = (SecondOrderBezier) findViewById(R.id.orderBezier);
+
+        frequencyBar = (DiscreteSeekBar) findViewById(R.id.discrete1);
+        comfortBar = (DiscreteSeekBar) findViewById(R.id.discrete2);
+        affinityBar = (DiscreteSeekBar) findViewById(R.id.discrete3);
+
+        frequencyBar.setOnProgressChangeListener(new mySeekBarListener());
+        comfortBar.setOnProgressChangeListener(new mySeekBarListener());
+        affinityBar.setOnProgressChangeListener(new mySeekBarListener());
+
+
         aboutTv = (TextView) findViewById(R.id.aboutTv);
+
+        frequencyTv = (TextView) findViewById(R.id.frequencyTv);
+        comfortTv = (TextView) findViewById(R.id.comfortTv);
+        affinityTv = (TextView) findViewById(R.id.affinityTv);
+
+        textViews[0] = (TextView) findViewById(R.id.oneTv);
+        textViews[1] = (TextView) findViewById(R.id.twoTv);
+        textViews[2] = (TextView) findViewById(R.id.threeTv);
+        textViews[3] = (TextView) findViewById(R.id.fourTv);
+        textViews[4] = (TextView) findViewById(R.id.fiveTv);
+        textViews[5] = (TextView) findViewById(R.id.sixTv);
+        textViews[6] = (TextView) findViewById(R.id.sevenTv);
+        textViews[7] = (TextView) findViewById(R.id.eightTv);
+        textViews[8] = (TextView) findViewById(R.id.nineTv);
 
         aboutTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent().setClass(MainActivity.this,AboutActivity.class));
+                startActivity(new Intent().setClass(MainActivity.this, AboutActivity.class));
             }
         });
 
-
-        DiscreteSeekBar discreteSeekBar1 = (DiscreteSeekBar) findViewById(R.id.discrete1);
-
-        discreteSeekBar1.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
-            @Override
-            public int transform(int value) {
-                return value * 100;
-            }
-        });
+        for (int i = 0; i < 9; i++) {
+            textViews[i].setOnClickListener(this);
+        }
 
     }
 
+    public class mySeekBarListener implements DiscreteSeekBar.OnProgressChangeListener {
+        @Override
+        public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+            if (seekBar == frequencyBar) {
+                frequencyTv.setText(value+"");
+                frequency = value;
+            } else if (seekBar == comfortBar) {
+                comfortTv.setText(value+"");
+                comfort = value;
+            } else {
+                affinityTv.setText(value+"");
+                affinity = value;
+            }
 
+            initView();
+        }
+
+        @Override
+        public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+
+        }
+    }
+
+
+    public void initView() {
+        orderBezier.editAuxiliary(frequency, comfort, affinity, gradeLevel);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.oneTv:
+                resetRadios(0);
+                break;
+            case R.id.twoTv:
+                resetRadios(1);
+                break;
+            case R.id.threeTv:
+                resetRadios(2);
+                break;
+            case R.id.fourTv:
+                resetRadios(3);
+                break;
+            case R.id.fiveTv:
+                resetRadios(4);
+                break;
+            case R.id.sixTv:
+                resetRadios(5);
+                break;
+            case R.id.sevenTv:
+                resetRadios(6);
+                break;
+            case R.id.eightTv:
+                resetRadios(7);
+                break;
+            case R.id.nineTv:
+                resetRadios(8);
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    /**
+     * 背景重置，并把当前选中
+     */
+    private void resetRadios(int tIndex) {
+        gradeLevel = tIndex;
+        for (int i = 0; i < 9; i++) {
+            textViews[i].setBackgroundResource(R.drawable.shape_circle_background2);
+        }
+        textViews[tIndex].setBackgroundResource(R.drawable.shape_circle_background);
+
+        handlerViewMessage(tIndex);
+    }
+
+    private void handlerViewMessage(int index) {
+
+        frequencyBar.setMax(OpenPumTimeArray[index + 2]);
+        frequencyBar.setMin(OpenPumTimeArray[index]);
+        frequencyBar.setProgress(OpenPumTimeArray[index + 1]);
+
+        comfortBar.setMax(StopPumTimeArray[index + 2]);
+        comfortBar.setMin(StopPumTimeArray[index]);
+        comfortBar.setProgress(StopPumTimeArray[index + 1]);
+
+        affinityBar.setMax(PWMDutyArray[index + 2]);
+        affinityBar.setMin(PWMDutyArray[index]);
+        affinityBar.setProgress(PWMDutyArray[index + 1]);
+
+        frequencyTv.setText(frequencyBar.getProgress()+"");
+        comfortTv.setText(comfortBar.getProgress()+"");
+        affinityTv.setText(affinityBar.getProgress()+"");
+
+        frequency = OpenPumTimeArray[index + 1];
+        comfort = StopPumTimeArray[index + 1];
+        affinity = PWMDutyArray[index + 1];
+
+        initView();
+    }
 }

@@ -1,6 +1,7 @@
 <android.support.v4.widget.DrawerLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -42,9 +43,9 @@
                 android:background="@color/primary"
                 android:layout_height="wrap_content">
             <TextView
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="舒适度调节"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
 
             <ImageView
                     android:id="@+id/bluetoothIv"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
                     android:src="@drawable/bluetooth"
                     android:layout_marginEnd="20dp"
                     android:layout_alignParentEnd="true"
@@ -60,7 +61,8 @@
                     android:layout_height="wrap_content"/>
 
             <com.uamother.bluetooth.views.SecondOrderBezier
-                   android:layout_below="@+id/bluetoothIv"
+                    android:id="@+id/orderBezier"
+                    android:layout_below="@id/bluetoothIv"
                     android:layout_width="match_parent"
                     android:background="@color/primary"
                     android:layout_height="160dp"/>
@@ -83,54 +85,63 @@
                 android:layout_height="wrap_content">
 
             <TextView
+                    android:id="@+id/oneTv"
                     android:text="一"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
             <TextView
+                    android:id="@+id/twoTv"
                     android:text="二"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
             <TextView
+                    android:id="@+id/threeTv"
                     android:text="三"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
             <TextView
+                    android:id="@+id/fourTv"
                     android:text="四"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
             <TextView
+                    android:id="@+id/fiveTv"
                     android:text="五"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
             <TextView
+                    android:id="@+id/sixTv"
                     android:text="六"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
             <TextView
+                    android:id="@+id/sevenTv"
                     android:text="七"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
             <TextView
+                    android:id="@+id/eightTv"
                     android:text="八"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
             <TextView
+                    android:id="@+id/nineTv"
                     android:text="九"
                     android:textColor="@color/black"
                     android:layout_width="0dp"
@@ -138,62 +149,102 @@
                     android:layout_weight="1"/>
         </LinearLayout>
 
-
-        <TextView
+        <RelativeLayout
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="20dp"
-                android:text="吸奶频率"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:text="吸奶频率"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/frequencyTv"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="20dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
         <com.uamother.bluetooth.other.DiscreteSeekBar
                 android:id="@+id/discrete1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:dsb_min="-5"
-                app:dsb_max="5"
-                app:dsb_value="-2"
+                app:dsb_min="59"
+                app:dsb_max="73"
+                app:dsb_value="66"
                 app:dsb_progressColor="#73b5f7"
                 app:dsb_rippleColor="#FF73b5f7"
                 app:dsb_indicatorColor="#73b5f7"/>
 
-        <TextView
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="20dp"
-                android:text="舒适度"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                            android:text="舒适度"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/comfortTv"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
         <com.uamother.bluetooth.other.DiscreteSeekBar
                 android:id="@+id/discrete2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:dsb_min="-5"
-                app:dsb_max="5"
-                app:dsb_value="-2"
+                app:dsb_min="123"
+                app:dsb_max="135"
+                app:dsb_value="130"
                 app:dsb_progressColor="#a8d67f"
                 app:dsb_rippleColor="#FFa8d67f"
-                app:dsb_indicatorColor="#a8d67f"
-                />
+                app:dsb_indicatorColor="#a8d67f"/>
 
-        <TextView
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="20dp"
-                android:text="亲和力"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <RelativeLayout
+                    android:layout_marginStart="27dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                            android:text="亲和力"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/affinityTv"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+            </RelativeLayout>
 
         <com.uamother.bluetooth.other.DiscreteSeekBar
                 android:id="@+id/discrete3"
+                app:dsb_min="92"
+                app:dsb_max="114"
+                app:dsb_value="104"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:dsb_progressColor="#ea7270"
                 app:dsb_rippleColor="#FFea7270"
-                app:dsb_indicatorColor="#ea7270"
-                />
+                app:dsb_indicatorColor="#ea7270"/>
 
         <TextView
                 android:layout_width="match_parent"
@@ -207,7 +258,7 @@
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
-                android:text="保存"/>
+                android:text="保存设置"/>
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

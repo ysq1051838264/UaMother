@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DiscreteSeekBar comfortBar;
     DiscreteSeekBar affinityBar;
 
-    int frequency = 0;
-    int comfort = 0;
-    int affinity = 0;
+    int frequency = 66;
+    int comfort = 130;
+    int affinity = 104;
     int gradeLevel = 0;
 
     @Override

@@ -1,199 +1,138 @@
 package com.uamother.bluetooth.main;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.bluetooth.*;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
+import android.bluetooth.BluetoothAdapter;
+import android.content.*;
+import android.os.*;
 import android.widget.Toast;
-import com.litesuits.bluetooth.LiteBleGattCallback;
-import com.litesuits.bluetooth.LiteBluetooth;
-import com.litesuits.bluetooth.exception.BleException;
-import com.litesuits.bluetooth.exception.hanlder.DefaultBleExceptionHandler;
-import com.litesuits.bluetooth.log.BleLog;
-import com.litesuits.bluetooth.scan.PeriodScanCallback;
-import com.litesuits.bluetooth.utils.BluetoothUtil;
 import com.uamother.bluetooth.R;
+import com.uamother.bluetooth.ble.BleConst;
+import com.uamother.bluetooth.ble.BleHelper;
+import com.uamother.bluetooth.ble.BleUtils;
+import com.uamother.bluetooth.ble.ScaleBleService;
+import com.uamother.bluetooth.ble.helper.ScaleMultiBleManager;
+import com.uamother.bluetooth.ble.lib.*;
 import com.uamother.bluetooth.utils.CacheUtil;
 import com.uamother.bluetooth.utils.Constants;
-import com.uamother.bluetooth.utils.StatusBarCompat;
+import com.uamother.bluetooth.utils.LogUtils;
 
-import java.util.Arrays;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/7/26.
  */
 public class LauncherActivity extends Activity {
 
-    BluetoothManager bluetoothManager;
-    BluetoothAdapter mBTAdapter;
+    Handler uiHandler = new Handler(Looper.getMainLooper());
+    BluetoothLeScannerCompat bleScanner = BluetoothLeScannerCompat.getScanner();
+    ScanFilter.MarshmallowPermission MARSHMALLOW_PERMISSION = new ScanFilter.MarshmallowPermission();
 
-    String TAG = "ysq";
+    ScaleBleService bleService;
 
-    /**
-     * 蓝牙主要操作对象，建议单例。
-     */
-    private static LiteBluetooth liteBluetooth;
-    /**
-     * 默认异常处理器
-     */
-    private DefaultBleExceptionHandler bleExceptionHandler;
-
-    public String UUID_SERVICE = "00001101-0000-1000-8000-00805F9B34FB";
+    ScanSettings scanSettings = new ScanSettings.Builder()
+            .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
+            .setCallbackType(ScanSettings.CALLBACK_TYPE_FIRST_MATCH)
+            .setMatchOptions(3000, 3000)
+            .setUseHardwareBatchingIfSupported(false).build();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-//        init();
+//        initData();
 
-        initData();
+        BluetoothAdapter adapter = BleUtils.getBluetoothAdapter(this);
+        if (adapter == null) {
+            Toast.makeText(this, "当前设备不支持蓝牙",Toast.LENGTH_SHORT);
+            return;
+        }
+        adapter.enable();
+
+        this.bindService(new Intent(this, ScaleBleService.class), serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
-    private void init() {
-        if (liteBluetooth == null) {
-            liteBluetooth = new LiteBluetooth(this);
-        }
-        liteBluetooth.enableBluetoothIfDisabled(this, 1);
-        bleExceptionHandler = new DefaultBleExceptionHandler(this);
-
-        liteBluetooth.startLeScan(new PeriodScanCallback(10000) {
-            @Override
-            public void onScanTimeout() {
-            }
-
-            @Override
-            public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-                liteBluetooth.scanAndConnect(device.getAddress(), false, new LiteBleGattCallback() {
-                    @Override
-                    public void onConnectSuccess(BluetoothGatt gatt, int status) {
-                        // discover services !
-                        gatt.discoverServices();
-//                        initData();
-
-                        getBluetoothState();
-                    }
-
-                    @Override
-                    public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-                        BluetoothUtil.printServices(gatt);
-                        dialogShow(device.getAddress() + " Services Discovered SUCCESS !");
-                    }
-
-                    @Override
-                    public void onConnectFailure(BleException exception) {
-                        bleExceptionHandler.handleException(exception);
-                        dialogShow(device.getAddress() + " Services Discovered FAILURE !");
-                    }
-                });
-            }
-        });
-
-        bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-
-        if (bluetoothManager != null) {
-            mBTAdapter = bluetoothManager.getAdapter();
-        }
-
-        if (mBTAdapter == null || !mBTAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, 1000);
-        }
-
-//        mBTAdapter.startLeScan(new UUID[]{UUID.fromString(UUID_SERVICE)}, new BluetoothAdapter.LeScanCallback() {
-//            @Override
-//            public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        liteBluetooth.scanAndConnect(device.getAddress(), false, new LiteBleGattCallback() {
-//                            @Override
-//                            public void onConnectSuccess(BluetoothGatt gatt, int status) {
-//                                // discover services !
-//                                gatt.discoverServices();
-//                                initData();
-//
-//                                getBluetoothState();
-//                            }
-//
-//                            @Override
-//                            public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-//                                BluetoothUtil.printServices(gatt);
-//                                dialogShow(device.getAddress() + " Services Discovered SUCCESS !");
-//                            }
-//
-//                            @Override
-//                            public void onConnectFailure(BleException exception) {
-//                                bleExceptionHandler.handleException(exception);
-//                                dialogShow(device.getAddress() + " Services Discovered FAILURE !");
-//                            }
-//                        });
-//
-//                    }
-//                });
-//            }
-//        });
-//
+    @Override
+    protected void onResume() {
+        super.onResume();
+        uiHandler.postDelayed(startScanAction, 500);
     }
 
-    private void getBluetoothState() {
-        BleLog.i(TAG, "liteBluetooth.getConnectionState: " + liteBluetooth.getConnectionState());
-        BleLog.i(TAG, "liteBluetooth isInScanning: " + liteBluetooth.isInScanning());
-        BleLog.i(TAG, "liteBluetooth isConnected: " + liteBluetooth.isConnected());
-        BleLog.i(TAG, "liteBluetooth isServiceDiscoered: " + liteBluetooth.isServiceDiscoered());
-        if (liteBluetooth.getConnectionState() >= LiteBluetooth.STATE_CONNECTING) {
-            BleLog.i(TAG, "lite bluetooth is in connecting or connected");
+    final Runnable startScanAction = new Runnable() {
+        @Override
+        public void run() {
+            if (BleHelper.isEnable(getBaseContext())) {
+                MARSHMALLOW_PERMISSION.check(LauncherActivity.this);
+                //开始扫描
+                bleScanner.startScan(buildScanFilters(), scanSettings, scanCallback);
+            } else {
+                bleScanner.stopScan(scanCallback);
+                //关闭动画
+            }
         }
-        if (liteBluetooth.getConnectionState() == LiteBluetooth.STATE_SERVICES_DISCOVERED) {
-            BleLog.i(TAG, "lite bluetooth is in connected, services have been found");
-            addNewCallbackToOneConnection();
-        }
+    };
+
+    List<ScanFilter> buildScanFilters() {
+        List<ScanFilter> scanFilters = new ArrayList<ScanFilter>();
+
+        scanFilters.add(new ScanFilter.Builder().setDeviceName("HMSoft").build());
+        scanFilters.add(new ScanFilter.Builder().setDeviceNamePrefix("HMSoft").setServiceUuid(new ParcelUuid(BleConst.CLIENT_CHARACTERISTIC_CONFIG)).build());
+        return scanFilters;
     }
 
-    private void addNewCallbackToOneConnection() {
-        BluetoothGattCallback liteCallback = new BluetoothGattCallback() {
-            @Override
-            public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-            }
 
-            @Override
-            public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-            }
-
-            @Override
-            public void onCharacteristicWrite(BluetoothGatt gatt,
-                                              BluetoothGattCharacteristic characteristic, int status) {
-            }
-
-            @Override
-            public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-            }
-        };
-
-        if (liteBluetooth.isConnectingOrConnected()) {
-            liteBluetooth.addGattCallback(liteCallback);
-            liteBluetooth.removeGattCallback(liteCallback);
+    final ScanCallback scanCallback = new ScanCallback() {
+        @Override
+        public void onScanFailed(int errorCode) {
+            LogUtils.saveBleLog("扫描失败:", errorCode);
         }
 
-        liteBluetooth.refreshDeviceCache();
+        @Override
+        public void onScanResult(int callbackType, final ScanResult result) {
+            LogUtils.saveBleLog("出现设备,callbackType:", callbackType, result);
+            if (result.getScanRecord() == null) {
+                return;
+            }
+            uiHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    onScan(result);
+                }
+            });
+        }
+
+        @Override
+        public void onBatchScanResults(List<ScanResult> results) {
+            LogUtils.saveBleLog("出现批量结果:");
+            for (ScanResult scanResult : results) {
+                LogUtils.saveBleLog(scanResult);
+            }
+        }
+    };
+
+    public void onScan(final ScanResult scanResult) {
+        String deviceName = scanResult.getScanRecord().getDeviceName();
+        String mac = scanResult.getDevice().getAddress();
+
+        bleService.connect(scanResult.getDevice());
     }
 
-    public void dialogShow(String msg) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Lite BLE");
-        builder.setMessage(msg);
-        builder.setPositiveButton("OK", null);
-        builder.show();
-    }
+    ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            bleService = ((ScaleBleService.ScaleBleBinder) service).getService();
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
 
     private void initData() {
-
         boolean isOpenGuide = CacheUtil.getCacheBooleanData(this, Constants.IS_OPEN_GUIDE, true);
 
         if (isOpenGuide) {

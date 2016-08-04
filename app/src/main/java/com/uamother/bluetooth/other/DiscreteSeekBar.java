@@ -165,13 +165,13 @@ public class DiscreteSeekBar extends View {
         mAllowTrackClick = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_allowTrackClickToDrag, mAllowTrackClick);
         mIndicatorPopupEnabled = a.getBoolean(R.styleable.DiscreteSeekBar_dsb_indicatorPopupEnabled, mIndicatorPopupEnabled);
 
-        //±³¾°µÄ¸ß¶È
+        //èƒŒæ™¯çš„é«˜åº¦
         mTrackHeight = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_trackHeight, (int) (4 * density));
 
-        //À­³¤µÄ¸ß¶È
+        //æ‹‰é•¿çš„é«˜åº¦
         mScrubberHeight = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_scrubberHeight, (int) (5 * density));
 
-        //¶¨ÔÚÄÇÀïÔ²µÄ´óĞ¡
+        //å®šåœ¨é‚£é‡Œåœ†çš„å¤§å°
         int thumbSize = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_thumbSize, (int) (density * 15));
 
         int separation = a.getDimensionPixelSize(R.styleable.DiscreteSeekBar_dsb_indicatorSeparation,
@@ -179,7 +179,7 @@ public class DiscreteSeekBar extends View {
 
         //Extra pixels for a minimum touch area of 32dp
         int touchBounds = (int) (density * 32);
-        //°´ÏÂÈ¥Ê±ºò£¬Ô²µÄ´óĞ¡
+        //æŒ‰ä¸‹å»æ—¶å€™ï¼Œåœ†çš„å¤§å°
         mAddedTouchBounds = Math.max(0, (touchBounds - thumbSize) / 2);
 
         int indexMax = R.styleable.DiscreteSeekBar_dsb_max;

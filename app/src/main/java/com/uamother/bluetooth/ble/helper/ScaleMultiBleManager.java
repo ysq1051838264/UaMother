@@ -3,6 +3,8 @@ package com.uamother.bluetooth.ble.helper;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.Context;
+import android.util.Log;
+import com.uamother.bluetooth.ble.BleConst;
 
 import java.util.UUID;
 
@@ -10,8 +12,7 @@ import java.util.UUID;
  * Created by hdr on 16/3/17.
  */
 public class ScaleMultiBleManager extends MultiBleManager<ScaleMultiBleManager.ScaleBleCallback> {
-    BluetoothGattCharacteristic yolandaReadBgc, yolandaWriteBgc, yolandaBleReadBgc, yolandaBleWriteBgc, yolandaNameReadBgc, yolandaBleInfoWriterBgc, miNotifyBgc, miIndicateBgc;
-
+    BluetoothGattCharacteristic ReadBgc, WriteBgc;
     public ScaleMultiBleManager(Context context) {
         super(context);
     }
@@ -35,13 +36,9 @@ public class ScaleMultiBleManager extends MultiBleManager<ScaleMultiBleManager.S
     }
 
     public void writeData(UUID serviceUUID, UUID characteristicUUID, byte[] value) {
-        BluetoothGattCharacteristic bgc = null;
-        if (characteristicUUID.equals(yolandaWriteBgc.getUuid())) {
-            bgc = yolandaWriteBgc;
-        } else if (characteristicUUID.equals(yolandaBleWriteBgc.getUuid())) {
-            bgc = yolandaBleWriteBgc;
-        } else if (characteristicUUID.equals(yolandaBleInfoWriterBgc.getUuid())) {
-            bgc = yolandaBleInfoWriterBgc;
+        BluetoothGattCharacteristic bgc = WriteBgc;
+        if (characteristicUUID.equals(WriteBgc.getUuid())) {
+            bgc = WriteBgc;
         }else {
             BluetoothGatt gatt = gattMap.get(mCallbacks.getCurrentAddress());
             if (gatt != null) {
@@ -55,6 +52,29 @@ public class ScaleMultiBleManager extends MultiBleManager<ScaleMultiBleManager.S
         writeCharacteristic(mCallbacks.getCurrentAddress(), bgc);
     }
 
+    public void readData(){
+        BluetoothGattCharacteristic bgc = null;
+
+        byte[] SendDatabyte = new byte[4];
+
+        SendDatabyte[0] = '?';
+        SendDatabyte[1] = 0x02;
+        SendDatabyte[2] = (byte) 0xa1;
+        SendDatabyte[3] = (byte) 0xa3;
+
+        BluetoothGatt gatt = gattMap.get(mCallbacks.getCurrentAddress());
+        if (gatt != null) {
+            bgc = bleManagerGattCallback.getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_CONFIG);
+        }
+
+        bgc.setValue(SendDatabyte);
+
+        Log.i("ysq读取数据：", "发送的信息是：" + SendDatabyte);
+
+        readCharacteristic(mCallbacks.getCurrentAddress(), bgc);
+    }
+
+
     final BleManagerGattCallback bleManagerGattCallback = new BleManagerGattCallback() {
         @Override
         protected boolean isRequiredServiceSupported(BluetoothGatt gatt) {
@@ -62,28 +82,16 @@ public class ScaleMultiBleManager extends MultiBleManager<ScaleMultiBleManager.S
             if (!address.equals(mCallbacks.getCurrentAddress())) {
                 return false;
             }
-            switch (mCallbacks.getProtocolType()) {
+            ReadBgc = getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_CONFIG);
+            WriteBgc = getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_CONFIG);
 
-                case 3: {
-                    //体重秤
-                   // yolandaReadBgc = getCharacteristic(gatt, BleConst.UUID_IBT_SERVICES, BleConst.UUID_IBT_READ);
-                    return yolandaReadBgc != null;
-                }
-                case -1: {
-                    return false;
-                }
-                default: {
-                    //普通智能秤
-
-                    return yolandaReadBgc != null && yolandaWriteBgc != null;
-                }
-
-            }
+            return ReadBgc != null && WriteBgc != null;
         }
 
         @Override
         protected void onDeviceConnected(String address) {
-
+            Log.i("ysq:是不是设备链接成功", "address:" + address);
+            readData();
         }
 
         @Override
@@ -111,37 +119,8 @@ public class ScaleMultiBleManager extends MultiBleManager<ScaleMultiBleManager.S
             if (!address.equals(mCallbacks.getCurrentAddress())) {
                 return;
             }
-            switch (mCallbacks.getProtocolType()) {
-                case 6: {
-                    //小米设备
-                    addRequest(address, Request.newEnableNotificationsRequest(miNotifyBgc));
-                    addRequest(address, Request.newEnableIndicationsRequest(miIndicateBgc));
-                    break;
-                }
-
-                case 3: {
-                    //体重秤
-                    addRequest(address, Request.newEnableNotificationsRequest(yolandaReadBgc));
-                    break;
-                }
-                case -1: {
-                    break;
-                }
-                default: {
-                    //普通智能秤
-                    addRequest(address, Request.newEnableNotificationsRequest(yolandaReadBgc));
-                    if (yolandaBleReadBgc != null) {
-                        addRequest(address, Request.newEnableIndicationsRequest(yolandaBleReadBgc));
-                    }
-                    if (mCallbacks.needReadScaleName() && yolandaNameReadBgc != null) {
-                        addRequest(address, Request.newReadRequest(yolandaNameReadBgc));
-                    } else if (mCallbacks.needReadInternalModel() && yolandaBleInfoWriterBgc != null) {
-                        addRequest(address, Request.newWriteRequest(yolandaBleInfoWriterBgc, new byte[]{0x42, 0x04}));
-                    }
-
-                }
-
-            }
+            addRequest(address, Request.newEnableNotificationsRequest(ReadBgc));
+            addRequest(address, Request.newEnableNotificationsRequest(WriteBgc));
         }
     };
 }

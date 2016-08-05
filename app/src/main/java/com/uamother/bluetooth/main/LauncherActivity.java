@@ -41,11 +41,9 @@ public class LauncherActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-//        initData();
-
         BluetoothAdapter adapter = BleUtils.getBluetoothAdapter(this);
         if (adapter == null) {
-            Toast.makeText(this, "当前设备不支持蓝牙",Toast.LENGTH_SHORT);
+            Toast.makeText(this, "当前设备不支持蓝牙", Toast.LENGTH_SHORT);
             return;
         }
         adapter.enable();
@@ -81,7 +79,6 @@ public class LauncherActivity extends Activity {
         return scanFilters;
     }
 
-
     final ScanCallback scanCallback = new ScanCallback() {
         @Override
         public void onScanFailed(int errorCode) {
@@ -116,18 +113,18 @@ public class LauncherActivity extends Activity {
         String mac = scanResult.getDevice().getAddress();
 
         bleService.connect(scanResult.getDevice());
+
+//        initData();
     }
 
     ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             bleService = ((ScaleBleService.ScaleBleBinder) service).getService();
-
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-
         }
     };
 
@@ -141,6 +138,5 @@ public class LauncherActivity extends Activity {
             startActivity(new Intent(this, MainActivity.class));
         }
         finish();
-
     }
 }

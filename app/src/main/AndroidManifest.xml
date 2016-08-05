@@ -39,6 +39,7 @@
                 android:screenOrientation="portrait">
         </activity>
 
+        <service android:name="com.uamother.bluetooth.ble.ScaleBleService"/>
     </application>
 
 </manifest>

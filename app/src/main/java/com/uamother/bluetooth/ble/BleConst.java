@@ -17,6 +17,9 @@ public interface BleConst {
     byte PROTOCOL_NEW_YOLANDA = 0x15;
 
 
+    String ACTION_BLE_READ = "action_ble_read";
+    String ACTION_BLE_WRITE = "action_ble_write";
+
     String ACTION_BLE_SCAN = "action_ble_scan";
     String ACTION_BLE_SCAN_BIND = "action_ble_scan_bind";
 

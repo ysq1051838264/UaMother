@@ -64,7 +64,7 @@ public class ScaleMultiBleManager extends MultiBleManager<ScaleMultiBleManager.S
 
         BluetoothGatt gatt = gattMap.get(mCallbacks.getCurrentAddress());
         if (gatt != null) {
-            bgc = bleManagerGattCallback.getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_CONFIG);
+            bgc = bleManagerGattCallback.getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_UUID);
         }
 
         bgc.setValue(SendDatabyte);
@@ -82,8 +82,8 @@ public class ScaleMultiBleManager extends MultiBleManager<ScaleMultiBleManager.S
             if (!address.equals(mCallbacks.getCurrentAddress())) {
                 return false;
             }
-            ReadBgc = getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_CONFIG);
-            WriteBgc = getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_CONFIG);
+            ReadBgc = getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_UUID);
+            WriteBgc = getCharacteristic(gatt, BleConst.CLIENT_CHARACTERISTIC_CONFIG, BleConst.CLIENT_CHARACTERISTIC_UUID);
 
             return ReadBgc != null && WriteBgc != null;
         }

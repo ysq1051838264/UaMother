@@ -10,6 +10,7 @@ public interface BleConst {
     String KEY_SHOW_INVALID_DATA_DIALOG = "key_show_invalid_data_dialog";
 
     UUID CLIENT_CHARACTERISTIC_CONFIG = UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb");
+    UUID CLIENT_CHARACTERISTIC_UUID = UUID.fromString("0000ffe1-0000-1000-8000-00805f9b34fb");
 
     byte PROTOCOL_1ST = 0x01;
     byte PROTOCOL_2ND = 0x11;

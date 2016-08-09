@@ -39,7 +39,8 @@
                 android:screenOrientation="portrait">
         </activity>
 
-        <service android:name="com.uamother.bluetooth.ble.ScaleBleService"/>
+        <service android:name="com.hdr.wristband.ble.WristBleService"/>
+
     </application>
 
 </manifest>

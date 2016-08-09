@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#FF03A9F4</color>
-    <color name="primary_dark">#FF0288D1</color>
+    <color name="primary">#FF009DE6</color>
+    <color name="primary_dark">#009DE6</color>
     <color name="status_bar_color">@color/primary_dark</color>
 
     <color name="white">#FFFFFFFF</color>
+
+    <color name="bg_white">#FFF0F0F0</color>
 
     <color name="black">#3c4f5e</color>
 

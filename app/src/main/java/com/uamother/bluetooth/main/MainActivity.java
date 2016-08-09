@@ -1,20 +1,24 @@
 package com.uamother.bluetooth.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+import com.hdr.wristband.BlePresenter;
+import com.hdr.wristband.model.BleDevice;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
 import com.uamother.bluetooth.utils.StatusBarCompat;
 import com.uamother.bluetooth.views.SecondOrderBezier;
+import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,BlePresenter.BleView {
 
     int OpenPumTimeArray[] = {59, 66, 73, 88, 96, 103, 110, 118, 125, 133, 140}; /* OpenPumTimeArray*5  */
     int StopPumTimeArray[] = {123, 130, 135, 141, 147, 156, 163, 169, 175, 184, 192};/* StopPumTimeArray*5  */
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //缺省设定
     TextView[] textViews = new TextView[9];
+
+    BlePresenter blePresenter;
 
     //吸奶频率，舒适度，亲和力
     DiscreteSeekBar frequencyBar;
@@ -56,6 +62,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         StatusBarCompat.compat(this);
 
         initData();
+
+        blePresenter = new BlePresenter(this);
+
+        blePresenter.init();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        blePresenter.release();
     }
 
     public void initData() {
@@ -88,6 +105,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViews[7] = (TextView) findViewById(R.id.eightTv);
         textViews[8] = (TextView) findViewById(R.id.nineTv);
 
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/PingFang_Light_0.ttf");
+        for (int i = 0; i < 9; i++) {
+            textViews[i].setTypeface(typeFace);
+        }
+
         aboutTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +121,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViews[i].setOnClickListener(this);
         }
 
+    }
+
+    @NotNull
+    @Override
+    public Context getCtx() {
+        return this;
+    }
+
+    @Override
+    public void newScanDevice(@NotNull BleDevice device) {
+    }
+
+    @Override
+    public void updateScanDevice(int index, @NotNull BleDevice device) {
     }
 
     public class mySeekBarListener implements DiscreteSeekBar.OnProgressChangeListener {

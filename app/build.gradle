@@ -1,12 +1,15 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VERSION"
     }
 }
-apply plugin: 'com.android.application'
 
 repositories {
     jcenter()
@@ -32,6 +35,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -43,8 +47,16 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:support-v4:23.0.0'
-    compile 'com.google.dagger:dagger:2.0'
 
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'io.reactivex:rxandroid:0.24.0'
 
+    compile project(':BleLib')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$KOTLIN_VERSION"
+    compile "org.jetbrains.anko:anko-sdk15:$ANKO_VERSION"
+    compile("org.jetbrains.anko:anko-appcompat-v7:$ANKO_VERSION")
+    compile("org.jetbrains.anko:anko-recyclerview-v7:$ANKO_VERSION")
+    compile("org.jetbrains.anko:anko-gridlayout-v7:$ANKO_VERSION")
+    compile("org.jetbrains.anko:anko-design:$ANKO_VERSION")
 }

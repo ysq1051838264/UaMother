@@ -18,7 +18,7 @@ import com.uamother.bluetooth.utils.StatusBarCompat;
 import com.uamother.bluetooth.views.SecondOrderBezier;
 import org.jetbrains.annotations.NotNull;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,BlePresenter.BleView {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, BlePresenter.BleView {
 
     int OpenPumTimeArray[] = {59, 66, 73, 88, 96, 103, 110, 118, 125, 133, 140}; /* OpenPumTimeArray*5  */
     int StopPumTimeArray[] = {123, 130, 135, 141, 147, 156, 163, 169, 175, 184, 192};/* StopPumTimeArray*5  */
@@ -117,6 +117,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (blePresenter.getBleService() != null && blePresenter.getBleService().getWristDecoder() != null)
+                    blePresenter.getBleService().getWristDecoder().getSaveValue();
+            }
+        });
+
         for (int i = 0; i < 9; i++) {
             textViews[i].setOnClickListener(this);
         }
@@ -137,17 +146,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void updateScanDevice(int index, @NotNull BleDevice device) {
     }
 
+
     public class mySeekBarListener implements DiscreteSeekBar.OnProgressChangeListener {
         @Override
         public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
             if (seekBar == frequencyBar) {
-                frequencyTv.setText(value+"");
+                frequencyTv.setText(value + "");
                 frequency = value;
             } else if (seekBar == comfortBar) {
-                comfortTv.setText(value+"");
+                comfortTv.setText(value + "");
                 comfort = value;
             } else {
-                affinityTv.setText(value+"");
+                affinityTv.setText(value + "");
                 affinity = value;
             }
 
@@ -221,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         handlerViewMessage(tIndex);
     }
 
+
     private void handlerViewMessage(int index) {
 
         frequencyBar.setMax(OpenPumTimeArray[index + 2]);
@@ -235,9 +246,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         affinityBar.setMin(PWMDutyArray[index]);
         affinityBar.setProgress(PWMDutyArray[index + 1]);
 
-        frequencyTv.setText(frequencyBar.getProgress()+"");
-        comfortTv.setText(comfortBar.getProgress()+"");
-        affinityTv.setText(affinityBar.getProgress()+"");
+        frequencyTv.setText(frequencyBar.getProgress() + "");
+        comfortTv.setText(comfortBar.getProgress() + "");
+        affinityTv.setText(affinityBar.getProgress() + "");
 
         frequency = OpenPumTimeArray[index + 1];
         comfort = StopPumTimeArray[index + 1];

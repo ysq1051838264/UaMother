@@ -9,7 +9,7 @@ import com.hdr.wristband.xrz.XrzWristDecoder
 import java.util.*
 
 /**
- * Created by ysq on 16/7/24.
+ * Created by ysq on 16/7/4.
  */
 class WristBleService : BleProfileService(), WristBleManager.WristBleCallback {
 

@@ -38,6 +38,24 @@
                     android:layout_height="wrap_content"/>
         </android.support.v7.widget.Toolbar>
 
+        <com.uamother.bluetooth.views.PulsatorLayout
+                android:id="@+id/pulsator"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:pulse_count="5"
+                app:pulse_duration="7000"
+                app:pulse_repeat="0"
+                app:pulse_color="@color/primary_dark"
+                app:pulse_startFromScratch="false">
+
+            <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_launcher"/>
+
+        </com.uamother.bluetooth.views.PulsatorLayout>
+
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/background"
@@ -100,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
 
-                <View
+            <View
                     android:layout_marginTop="180dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginStart="5dp"

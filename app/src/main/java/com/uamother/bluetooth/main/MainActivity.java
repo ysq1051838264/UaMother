@@ -15,6 +15,7 @@ import com.hdr.wristband.model.BleDevice;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
 import com.uamother.bluetooth.utils.StatusBarCompat;
+import com.uamother.bluetooth.views.PulsatorLayout;
 import com.uamother.bluetooth.views.SecondOrderBezier;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DiscreteSeekBar frequencyBar;
     DiscreteSeekBar comfortBar;
     DiscreteSeekBar affinityBar;
+
+    PulsatorLayout pulsator;
 
     int frequency = 66;
     int comfort = 130;
@@ -77,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void initData() {
         orderBezier = (SecondOrderBezier) findViewById(R.id.orderBezier);
+
+        pulsator= (PulsatorLayout) findViewById(R.id.pulsator);
+        pulsator.start();
 
         saveBtn = (Button) findViewById(R.id.saveBtn);
 

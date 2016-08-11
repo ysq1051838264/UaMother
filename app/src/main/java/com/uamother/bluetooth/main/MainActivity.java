@@ -7,6 +7,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         blePresenter = new BlePresenter(this);
 
         blePresenter.init();
-
     }
 
     @Override
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void initData() {
         orderBezier = (SecondOrderBezier) findViewById(R.id.orderBezier);
 
-        pulsator= (PulsatorLayout) findViewById(R.id.pulsator);
+        pulsator = (PulsatorLayout) findViewById(R.id.pulsator);
         pulsator.start();
 
         saveBtn = (Button) findViewById(R.id.saveBtn);
@@ -126,9 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (blePresenter.getBleService() != null && blePresenter.getBleService().getWristDecoder() != null)
-                    blePresenter.getBleService().getWristDecoder().getSaveValue();
+                    blePresenter.getBleService().getWristDecoder().writeData();
             }
         });
 
@@ -150,6 +149,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void updateScanDevice(int index, @NotNull BleDevice device) {
+    }
+
+    @Override
+    public void connectSuccess() {
+        Log.i("ysq", "连接成功,关闭蓝牙扫描");
+        pulsator.stop();
+        pulsator.setVisibility(View.GONE);
+
+        if (blePresenter.getBleService() != null && blePresenter.getBleService().getWristDecoder() != null)
+            blePresenter.getBleService().getWristDecoder().getSaveValue();
     }
 
 

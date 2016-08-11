@@ -3,6 +3,7 @@ package com.uamother.bluetooth.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.utils.CacheUtil;
 import com.uamother.bluetooth.utils.Constants;
@@ -17,7 +18,11 @@ public class LauncherActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
-        initData();
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                initData();
+            }
+        }, 800);
     }
 
     private void initData() {

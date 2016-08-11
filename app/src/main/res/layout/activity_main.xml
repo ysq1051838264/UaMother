@@ -48,39 +48,15 @@
                 app:pulse_color="@color/primary_dark"
                 app:pulse_startFromScratch="false">
 
-            <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_centerInParent="true"
-                    android:src="@mipmap/ic_launcher"/>
-
         </com.uamother.bluetooth.views.PulsatorLayout>
 
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/background"
                 android:layout_height="210dp">
-            <TextView
-                    android:layout_marginTop="5dp"
-                    android:text="舒适度调节"
-                    android:layout_marginBottom="5dp"
-                    android:layout_centerHorizontal="true"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <ImageView
-                    android:id="@+id/bluetoothIv"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/bluetooth"
-                    android:layout_marginEnd="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
             <com.uamother.bluetooth.views.SecondOrderBezier
                     android:id="@+id/orderBezier"
-                    android:layout_below="@id/bluetoothIv"
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"/>
 
@@ -144,87 +120,132 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <TextView
-                    android:id="@+id/oneTv"
-                    android:text="一"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/twoTv"
-                    android:text="二"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/oneTv"
+                        android:text="一"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/threeTv"
-                    android:text="三"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/twoTv"
+                        android:text="二"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                       android:layout_height="26dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/fourTv"
-                    android:text="四"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/threeTv"
+                        android:text="三"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                       android:layout_height="26dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/fiveTv"
-                    android:text="五"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/fourTv"
+                        android:text="四"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                       android:layout_height="26dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/sixTv"
-                    android:text="六"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/fiveTv"
+                        android:text="五"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                       android:layout_height="26dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/sevenTv"
-                    android:text="七"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/sixTv"
+                        android:text="六"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                       android:layout_height="26dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/eightTv"
-                    android:text="八"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/sevenTv"
+                        android:text="七"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                       android:layout_height="26dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
-            <TextView
-                    android:id="@+id/nineTv"
-                    android:text="九"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textColor="@color/black"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/eightTv"
+                        android:text="八"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                       android:layout_height="26dp"/>
+            </LinearLayout>
+
+            <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/nineTv"
+                        android:text="九"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:layout_width="26dp"
+                       android:layout_height="26dp"/>
+            </LinearLayout>
+
         </LinearLayout>
 
         <RelativeLayout

@@ -4,9 +4,11 @@
     <color name="primary_dark">#009DE6</color>
     <color name="status_bar_color">@color/primary_dark</color>
 
+    <color name="status_color">#00A2F1</color>
+
     <color name="white">#FFFFFFFF</color>
 
-    <color name="bg_white">#FFF0F0F0</color>
+    <color name="bg_white">#FFe0e0e0</color>
 
     <color name="black">#3c4f5e</color>
 

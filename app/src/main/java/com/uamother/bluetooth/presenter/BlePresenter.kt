@@ -28,6 +28,8 @@ class BlePresenter(val view: BleView) {
         fun newScanDevice(device: BleDevice)
 
         fun updateScanDevice(index: Int, device: BleDevice)
+
+        fun connectSuccess()
     }
 
     var bleService: WristBleService? = null
@@ -91,6 +93,7 @@ class BlePresenter(val view: BleView) {
                 }
                 BleConst.ACTION_BLE_DISCOVERED -> {
                     Log.i("ysq", "连接成功")
+                    view.connectSuccess()
                 }
                 ConnectivityManager.CONNECTIVITY_ACTION -> {
 

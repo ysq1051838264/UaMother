@@ -322,6 +322,7 @@ public class DiscreteSeekBar extends View {
         }
         //We need to refresh the PopupIndicator view
         updateIndicatorSizes();
+        invalidate();
     }
 
     public int getMax() {
@@ -350,6 +351,8 @@ public class DiscreteSeekBar extends View {
         if (mValue < mMin || mValue > mMax) {
             setProgress(mMin);
         }
+        updateIndicatorSizes();
+        invalidate();
     }
 
     public int getMin() {
@@ -366,6 +369,8 @@ public class DiscreteSeekBar extends View {
      */
     public void setProgress(int progress) {
         setProgress(progress, false);
+        updateIndicatorSizes();
+        invalidate();
     }
 
     private void setProgress(int value, boolean fromUser) {
@@ -374,12 +379,12 @@ public class DiscreteSeekBar extends View {
             mPositionAnimator.cancel();
         }
 
-        if (mValue != value) {
+//        if (mValue != value) {
             mValue = value;
             notifyProgress(value, fromUser);
             updateProgressMessage(value);
             updateThumbPosFromCurrentProgress();
-        }
+//        }
     }
 
     /**

@@ -89,6 +89,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="anko-design-0.8.2" level="project" />
     <orderEntry type="library" exported="" name="anko-appcompat-v7-0.8.2" level="project" />
+    <orderEntry type="library" exported="" name="rxpermissions-0.7.0" level="project" />
     <orderEntry type="library" exported="" name="rxandroid-0.24.0" level="project" />
     <orderEntry type="library" exported="" name="kotlin-stdlib-1.0.1-2" level="project" />
     <orderEntry type="library" exported="" name="anko-sdk15-0.8.2" level="project" />

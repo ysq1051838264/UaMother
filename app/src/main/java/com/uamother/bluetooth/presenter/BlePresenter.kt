@@ -7,12 +7,15 @@ import android.net.ConnectivityManager
 import android.os.IBinder
 import android.os.ParcelUuid
 import android.util.Log
+import android.widget.Toast
 import com.hdr.blelib.utils.BleUtils
+import com.hdr.wristband.ble.BleSubscriber
 import com.hdr.wristband.ble.WristBleService
 import com.hdr.wristband.model.BleDevice
 import com.hdr.wristband.utils.BleConst
 import no.nordicsemi.android.support.v18.scanner.*
 import org.jetbrains.anko.toast
+import rx.Observable
 import java.util.*
 
 /**
@@ -145,4 +148,7 @@ class BlePresenter(val view: BleView) {
         bleService?.disconnect()
     }
 
+    fun <T : Any> Observable<T>.bleSubscribe(action: ((T) -> Unit)) {
+        this.subscribe(BleSubscriber(action))
+    }
 }

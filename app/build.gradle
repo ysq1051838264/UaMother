@@ -59,4 +59,6 @@ dependencies {
     compile("org.jetbrains.anko:anko-recyclerview-v7:$ANKO_VERSION")
     compile("org.jetbrains.anko:anko-gridlayout-v7:$ANKO_VERSION")
     compile("org.jetbrains.anko:anko-design:$ANKO_VERSION")
+
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.7.0@aar'
 }

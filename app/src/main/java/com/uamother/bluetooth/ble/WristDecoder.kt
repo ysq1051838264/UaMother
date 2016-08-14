@@ -75,7 +75,7 @@ abstract class WristDecoder(val commandSender: CommandSender) {
     abstract fun onReceiveData(uuid: UUID, pkgData: ByteArray)
 
 
-    abstract fun writeData(): Observable<Unit>
+    abstract fun writeData(frequency: Int,comfort: Int,affinity: Int,flag:Int): Observable<Unit>
 
     /**
      * 获取存储值，返回存储值

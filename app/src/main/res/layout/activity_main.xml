@@ -53,13 +53,21 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:background="@drawable/background"
-                android:layout_height="210dp">
+                android:layout_height="190dp">
             <com.uamother.bluetooth.views.SecondOrderBezier
                     android:id="@+id/orderBezier"
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"/>
 
+            <View
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@color/bg_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
             <View
                     android:layout_marginTop="60dp"
                     android:layout_marginBottom="10dp"
@@ -96,7 +104,6 @@
 
             <View
                     android:layout_marginTop="180dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
                     android:background="@color/bg_white"
@@ -127,6 +134,7 @@
                 <TextView
                         android:id="@+id/oneTv"
                         android:text="一"
+                        android:background="@drawable/shape_circle_background"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:textColor="@color/black"
@@ -145,7 +153,7 @@
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:layout_width="26dp"
-                       android:layout_height="26dp"/>
+                        android:layout_height="26dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -159,7 +167,7 @@
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:layout_width="26dp"
-                       android:layout_height="26dp"/>
+                        android:layout_height="26dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -173,7 +181,7 @@
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:layout_width="26dp"
-                       android:layout_height="26dp"/>
+                        android:layout_height="26dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -187,7 +195,7 @@
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:layout_width="26dp"
-                       android:layout_height="26dp"/>
+                        android:layout_height="26dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -201,7 +209,7 @@
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:layout_width="26dp"
-                       android:layout_height="26dp"/>
+                        android:layout_height="26dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -215,7 +223,7 @@
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:layout_width="26dp"
-                       android:layout_height="26dp"/>
+                        android:layout_height="26dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -229,7 +237,7 @@
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:layout_width="26dp"
-                       android:layout_height="26dp"/>
+                        android:layout_height="26dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -243,7 +251,7 @@
                         android:gravity="center"
                         android:textColor="@color/black"
                         android:layout_width="26dp"
-                       android:layout_height="26dp"/>
+                        android:layout_height="26dp"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -261,6 +269,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    android:text="66"
                     android:id="@+id/frequencyTv"
                     android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
@@ -294,6 +303,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    android:text="129"
                     android:id="@+id/comfortTv"
                     android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
@@ -308,7 +318,7 @@
                 android:layout_height="wrap_content"
                 app:dsb_min="123"
                 app:dsb_max="135"
-                app:dsb_value="130"
+                app:dsb_value="129"
                 app:dsb_progressColor="#a8d67f"
                 app:dsb_rippleColor="#FFa8d67f"
                 app:dsb_indicatorColor="#a8d67f"/>
@@ -326,6 +336,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    android:text="103"
                     android:id="@+id/affinityTv"
                     android:textColor="@color/black"
                     android:layout_marginEnd="20dp"
@@ -338,7 +349,7 @@
                 android:id="@+id/discrete3"
                 app:dsb_min="92"
                 app:dsb_max="114"
-                app:dsb_value="104"
+                app:dsb_value="103"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:dsb_progressColor="#ea7270"
@@ -358,6 +369,17 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
                 android:text="保存设置"/>
+
+        <!--      <Button
+                      android:id="@+id/saveBtn"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:text="保存设置"/>
+              <Button
+                      android:id="@+id/readBtn"
+                      android:layout_width="match_parent"
+                      android:layout_height="40dp"
+                      android:text="读取设置"/>-->
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

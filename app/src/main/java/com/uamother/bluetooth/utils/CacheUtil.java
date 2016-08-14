@@ -6,6 +6,11 @@ import android.content.SharedPreferences.Editor;
 
 public class CacheUtil {
 
+	public static String SP_KEY_FREQUENCY = "sp_key_frequency";
+	public static String SP_KEY_COMFORT = "sp_key_comfort";
+	public static String SP_KEY_AFFINITY = "sp_key_affinity";
+	public static String SP_KEY_GRADELEVEL = "sp_key_gradelevel";
+
 	private static SharedPreferences sharedPreferences;
 
 	/**

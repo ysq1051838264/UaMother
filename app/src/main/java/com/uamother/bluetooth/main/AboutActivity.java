@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.utils.StatusBarCompat;
 
@@ -13,6 +14,8 @@ import com.uamother.bluetooth.utils.StatusBarCompat;
  */
 public class AboutActivity extends AppCompatActivity{
     ImageView imageView;
+
+    private long backStartTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,4 +38,14 @@ public class AboutActivity extends AppCompatActivity{
 
     }
 
+    @Override
+    public void onBackPressed() {
+        long now = System.currentTimeMillis();
+        if (now - backStartTime > 2000) {
+            Toast.makeText(this, "再次点击退出！", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
+        }
+        backStartTime = now;
+    }
 }

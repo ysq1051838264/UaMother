@@ -18,4 +18,6 @@
     <drawable name="green">#0f0</drawable>
     <drawable name="gray">#ccc</drawable>
 
+    <color name="color_gray_e0e0e0">#E0E0E0</color>
+
 </resources>

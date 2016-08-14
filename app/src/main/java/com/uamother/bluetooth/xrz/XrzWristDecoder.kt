@@ -56,26 +56,26 @@ class XrzWristDecoder(commandSender: CommandSender) : WristDecoder(commandSender
         val length = dataLength
         data?.let {
             data ->
-            if (data.size != length) {
-                Log.i("ysq", "这个数据包还不完整")
-                return
-            } else {
-                this.data = null
-                dataLength = -1
-            }
-            if (data.size > 11) {
-                //说明指定中有数据段,先对数据段进行解密
-                ProtocolHelper.decryptData(data)
-            }
+//            if (data.size > 11) {
+//                //说明指定中有数据段,先对数据段进行解密
+//                ProtocolHelper.decryptData(data)
+//            }
             val code = StringUtils.format(data)
-            Log.i("ysq", "解密数据:$code")
-            when (data[5].convertInt()) {
+            Log.i("ysq", "解密数据:$data"+"data1的值"+data[1].convertInt()+"data2的值"+data[2].convertInt()+"data3的值"+data[3].convertInt())
+            when (data[2].convertInt()) {
                 0x05 -> {
                     //这个是获取电量的
                     subscribers[cmd_get_save_value]?.send(data[9].toInt())
                 }
-                0x16 -> {
-                    Log.i("ysq", "用户又触摸了屏幕")
+                0xB1 -> {
+                    //获取当前存储的参数
+                    Log.i("ysq", "获取当前存储的参数" + Integer.valueOf(String.format("%02X", data[3]), 16) + "-"
+                            + Integer.valueOf(String.format("%02X", data[4]), 16) + "-"
+                            + Integer.valueOf(String.format("%02X", data[5]), 16))
+
+                    subscribers[cmd_get_save_value]?.send("获取当前存储的参数" + Integer.valueOf(String.format("%02X", data[3]), 16) + "-"
+                            + Integer.valueOf(String.format("%02X", data[4]), 16) + "-"
+                            + Integer.valueOf(String.format("%02X", data[5]), 16))
                 }
                 0x0A -> {
                     val sportData = WristSportData(
@@ -105,9 +105,9 @@ class XrzWristDecoder(commandSender: CommandSender) : WristDecoder(commandSender
         commandSender.send(cmd)
     }
 
-    override fun writeData(): Observable<Unit> = observe(cmd_write_data) {
+    override fun writeData(frequency: Int, comfort: Int, affinity: Int, flag: Int): Observable<Unit> = observe(cmd_write_data) {
         //00是保存
-        val cmd = ProtocolHelper.mergeData(byteArrayOf(0x76.toByte(), 0xa9.toByte(),0xac.toByte()), 0x00);
+        val cmd = ProtocolHelper.mergeData(byteArrayOf(frequency.toByte(), comfort.toByte(), affinity.toByte()), flag.toByte());
         commandSender.send(cmd)
     }
 

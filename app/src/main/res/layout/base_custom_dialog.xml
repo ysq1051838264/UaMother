@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:background="@drawable/custom_dialog_bg"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
+
+    <FrameLayout
+            android:id="@+id/contentView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="250dp"
+            android:minHeight="50dp"
+            android:layout_gravity="center">
+    </FrameLayout>
+
+    <View
+            android:background="@color/color_gray_e0e0e0"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+    <LinearLayout
+            android:id="@+id/dialog_btn_bar"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="40dp">
+
+    </LinearLayout>
+
+</LinearLayout>

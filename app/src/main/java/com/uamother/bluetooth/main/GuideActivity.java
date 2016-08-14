@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.adapter.GuideAdapter;
 import com.uamother.bluetooth.utils.CacheUtil;
@@ -50,6 +51,19 @@ public class GuideActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_guide);
         initView();
         initData();
+    }
+
+    private long backStartTime;
+
+    @Override
+    public void onBackPressed() {
+        long now = System.currentTimeMillis();
+        if (now - backStartTime > 2000) {
+            Toast.makeText(this, "再次点击退出！", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
+        }
+        backStartTime = now;
     }
 
    /* @Override

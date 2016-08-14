@@ -46,9 +46,10 @@ public class ProtocolHelper {
         SendDatabyte1[0] = (byte)0x3F;
         SendDatabyte1[1] = 0x06;
         SendDatabyte1[2] = (byte) 0xa0;
-        SendDatabyte1[3] =  cmdHead[0];
-        SendDatabyte1[4] =  cmdHead[1];
-        SendDatabyte1[5] =  cmdHead[2];
+        //传的时候，先传亲和力
+        SendDatabyte1[3] =  cmdHead[2];
+        SendDatabyte1[4] =  cmdHead[0];
+        SendDatabyte1[5] =  cmdHead[1];
         SendDatabyte1[6] = data;
         for (int i = 0; i <= 6; i++) {
             VerifyCode1 ^= SendDatabyte1[i];

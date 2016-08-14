@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.utils.CacheUtil;
 import com.uamother.bluetooth.utils.Constants;
@@ -12,6 +13,19 @@ import com.uamother.bluetooth.utils.Constants;
  * Created by Administrator on 2016/7/26.
  */
 public class LauncherActivity extends Activity {
+
+    private long backStartTime;
+
+    @Override
+    public void onBackPressed() {
+        long now = System.currentTimeMillis();
+        if (now - backStartTime > 2000) {
+            Toast.makeText(this, "再次点击退出！", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
+        }
+        backStartTime = now;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,6 +15,10 @@ object BleConst {
 
     val ACTION_BLE_DISCONNECTED = "action_ble_disconnected"
 
+    val SP_KEY_FREQUENCY = "sp_key_frequency"
+    val SP_KEY_COMFORT = "action_ble_disconnected"
+    val SP_KEY_AFFINITY = "action_ble_disconnected"
+
     val KEY_MAC = "mac"
     val KEY_UUID = "uuid"
     val KEY_DATA = "data"

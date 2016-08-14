@@ -1,5 +1,6 @@
 package com.uamother.bluetooth.main;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -89,6 +90,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initData();
 
+        BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if (!mBluetoothAdapter.isEnabled()) {
+            //启动修改蓝牙可见性的Intent
+            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            //设置蓝牙可见性的时间，方法本身规定最多可见300秒
+            intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 120);
+            startActivityForResult(intent, 1);
+        }
+
         int g = spHelper.getInt(CacheUtil.SP_KEY_GRADELEVEL, 0);
         if (g != 0) {
             resetRadios(g);
@@ -105,6 +116,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         blePresenter = new BlePresenter(this);
 
         blePresenter.init();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                Toast.makeText(this, "蓝牙已经开启", Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "用户未开始蓝牙", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

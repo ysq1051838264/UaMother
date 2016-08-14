@@ -34,6 +34,9 @@ public class SecondOrderBezier extends View {
 
     private Path mPath = new Path();
 
+    //定义、并创建画笔
+    Paint p = new Paint();
+
     int OpenPumTimeArray[] = {59, 66, 73, 88, 96, 103, 110, 118, 125, 133, 140}; /* OpenPumTimeArray*5  */
     int StopPumTimeArray[] = {123, 130, 135, 141, 147, 156, 163, 169, 175, 184, 192};/* StopPumTimeArray*5  */
     int PWMDutyArray[] = {92, 104, 114, 137, 142, 152, 162, 172, 182, 197, 205};
@@ -88,17 +91,24 @@ public class SecondOrderBezier extends View {
         // 二阶贝塞尔曲线
         mPath.quadTo(mAuxiliaryX, mAuxiliaryY, mEndPointX, mEndPointY);
         canvas.drawPath(mPath, mPaintBezier);
+
+        //设置画笔的颜色
+        p.setColor(Color.WHITE);
+        //绘制一个小球
+        canvas.drawCircle(mStartPointX, mStartPointY,4, p);
+        canvas.drawCircle(mEndPointX, mEndPointY,4, p);
     }
 
     public void editAuxiliary(int frequency, int comfort, int affinity, int gradeLevel) {
+
         int a = OpenPumTimeArray[gradeLevel + 2] - OpenPumTimeArray[gradeLevel];
         int b = StopPumTimeArray[gradeLevel + 2] - StopPumTimeArray[gradeLevel];
         int c = PWMDutyArray[gradeLevel + 2] - PWMDutyArray[gradeLevel];
 
 //        mAuxiliaryX = (mEndPointX - mStartPointX) / (a + b) * (frequency - OpenPumTimeArray[gradeLevel] + comfort - StopPumTimeArray[gradeLevel]);
 
-        mAuxiliaryX = ((mEndPointX - mStartPointX) /2) +
-                (((mEndPointX - mStartPointX) /2) /a * (frequency - OpenPumTimeArray[gradeLevel]) - ((mEndPointX - mStartPointX) /2) /a *(comfort - StopPumTimeArray[gradeLevel]));
+        mAuxiliaryX = ((mEndPointX - mStartPointX) / 2) +
+                (((mEndPointX - mStartPointX) / 2) / a * (frequency - OpenPumTimeArray[gradeLevel]) - ((mEndPointX - mStartPointX) / 2) / a * (comfort - StopPumTimeArray[gradeLevel]));
 
         mAuxiliaryY = -(height / c * (affinity - PWMDutyArray[gradeLevel]));
 

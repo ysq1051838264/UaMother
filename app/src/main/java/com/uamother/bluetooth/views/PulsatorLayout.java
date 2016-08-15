@@ -19,7 +19,6 @@ import java.util.List;
 
 /**
  *  Created by ysq on 26/7/21.
- *
  */
 public class PulsatorLayout extends RelativeLayout {
 

@@ -11,19 +11,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import com.hdr.wristband.BlePresenter;
 import com.hdr.wristband.model.BleDevice;
-import com.hdr.wristband.utils.BleConst;
+import com.hdr.wristband.utils.StringUtils;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
 import com.uamother.bluetooth.other.SpHelper;
 import com.uamother.bluetooth.utils.CacheUtil;
+import com.uamother.bluetooth.utils.Constants;
 import com.uamother.bluetooth.utils.StatusBarCompat;
 import com.uamother.bluetooth.views.PulsatorLayout;
-import com.uamother.bluetooth.views.SecondOrderBezier;
+import com.uamother.bluetooth.views.ScreenView;
+import com.uamother.bluetooth.views.mScreenView;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BlePresenter.BleView {
@@ -36,12 +36,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView aboutTv;
     Button saveBtn;
 
+    //顶部
+    ImageView imageView;
+    ImageView bluetoothClose;
+    RelativeLayout relativeLayout;
+
     //吸奶频率，舒适度，亲和力的显示值
     TextView frequencyTv;
     TextView comfortTv;
     TextView affinityTv;
 
-    SecondOrderBezier orderBezier;
+    ScreenView leftView;
+    mScreenView rightView;
 
     //缺省设定
     TextView[] textViews = new TextView[9];
@@ -68,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed() {
         long now = System.currentTimeMillis();
         if (now - backStartTime > 2000) {
-            Toast.makeText(this, "再次点击退出！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "再次点击退出！", Toast.LENGTH_SHORT).show();
         } else {
             super.onBackPressed();
         }
@@ -137,10 +143,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void initData() {
-        orderBezier = (SecondOrderBezier) findViewById(R.id.orderBezier);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        bluetoothClose = (ImageView) findViewById(R.id.bluetoothClose);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+
+        leftView = (ScreenView) findViewById(R.id.screenView);
+        rightView = (mScreenView) findViewById(R.id.mScreenView);
 
         pulsator = (PulsatorLayout) findViewById(R.id.pulsator);
-        pulsator.start();
+
+        String mac = spHelper.getString(Constants.SP_KEY_CURRENT_MAC, "");
+        if (StringUtils.INSTANCE.isEmpty(mac)) {
+            pulsator.start();
+        } else {
+            pulsator.stop();
+            pulsator.setVisibility(View.GONE);
+            relativeLayout.setVisibility(View.GONE);
+            bluetoothClose.setVisibility(View.GONE);
+        }
 
         saveBtn = (Button) findViewById(R.id.saveBtn);
 
@@ -151,7 +171,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         frequencyBar.setOnProgressChangeListener(new mySeekBarListener());
         comfortBar.setOnProgressChangeListener(new mySeekBarListener());
         affinityBar.setOnProgressChangeListener(new mySeekBarListener());
-
 
         aboutTv = (TextView) findViewById(R.id.aboutTv);
 
@@ -184,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeData(frequency, comfort, affinity,0x0a);
+                writeData(frequency, comfort, affinity, 0x0a);
                 SharedPreferences.Editor configEditor = spHelper.getConfigEditor();
                 configEditor.putInt(CacheUtil.SP_KEY_FREQUENCY, frequency);
                 configEditor.putInt(CacheUtil.SP_KEY_COMFORT, comfort);
@@ -198,6 +217,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             textViews[i].setOnClickListener(this);
         }
 
+        bluetoothClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pulsator.setCount(5);
+                pulsator.setDuration(7000);
+                pulsator.start();
+                pulsator.setVisibility(View.VISIBLE);
+                relativeLayout.setVisibility(View.VISIBLE);
+                bluetoothClose.setVisibility(View.GONE);
+            }
+        });
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pulsator.stop();
+                pulsator.setVisibility(View.GONE);
+                relativeLayout.setVisibility(View.GONE);
+                bluetoothClose.setVisibility(View.VISIBLE);
+            }
+        });
       /*  Button read = (Button) findViewById(R.id.readBtn);
         read.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,19 +265,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void connectSuccess() {
         Log.i("ysq", "连接成功,关闭蓝牙扫描");
-        Toast.makeText(getCtx(), "母婴设备连接成功", Toast.LENGTH_SHORT).show();
+
         pulsator.stop();
-        pulsator.setVisibility(View.GONE);
+        relativeLayout.setVisibility(View.GONE);
+        bluetoothClose.setVisibility(View.GONE);
 
         if (blePresenter.getBleService() != null && blePresenter.getBleService().getWristDecoder() != null)
             blePresenter.getBleService().getWristDecoder().getSaveValue();
     }
 
-    public void writeData(int frequency, int comfort, int affinity,int flag) {
-        if (blePresenter != null && blePresenter.getBleService() != null && blePresenter.getBleService().getWristDecoder() != null)
-            blePresenter.getBleService().getWristDecoder().writeData(frequency, comfort, affinity,flag);
-        else
-            Toast.makeText(this, "未连接蓝牙，请重启设备或者重启app", Toast.LENGTH_SHORT).show();
+    public void writeData(int frequency, int comfort, int affinity, int flag) {
+        if (blePresenter != null && blePresenter.getBleService() != null && blePresenter.getBleService().getWristDecoder() != null) {
+            blePresenter.getBleService().getWristDecoder().writeData(frequency, comfort, affinity, flag);
+            if (flag != 1)
+                Toast.makeText(this, "吮吸模式已保存成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public class mySeekBarListener implements DiscreteSeekBar.OnProgressChangeListener {
@@ -260,19 +301,66 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
-
         }
 
         @Override
         public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
-
         }
     }
 
-
     public void initView() {
-        writeData(frequency, comfort, affinity,1);
-        orderBezier.editAuxiliary(frequency, comfort, affinity, gradeLevel);
+        writeData(frequency, comfort, affinity, 1);
+
+        float gradle = get(gradeLevel);
+        int a = OpenPumTimeArray[gradeLevel + 2] - OpenPumTimeArray[gradeLevel];
+        int b = StopPumTimeArray[gradeLevel + 2] - StopPumTimeArray[gradeLevel];
+        int c = PWMDutyArray[gradeLevel + 2] - PWMDutyArray[gradeLevel];
+
+        float height = get(gradeLevel);
+
+        float Asection = 1 - (frequency - OpenPumTimeArray[gradeLevel]) * (gradle / a);
+        float Bsection = 1 - (comfort - StopPumTimeArray[gradeLevel]) * (gradle / b);
+        float Csection = 110 + 100 * (affinity - PWMDutyArray[gradeLevel]) * (height / c);
+
+        //高度应该是100-150变化，0.55-1
+        leftView.setmStartPointX(Csection, Asection);
+        rightView.setmStartPointX(Csection, Bsection);
+    }
+
+    public float get(int gradeLevel) {
+        float grade = 0;
+        switch (gradeLevel) {
+            case 0:
+                grade = 0.1f;
+                break;
+            case 1:
+                grade = 0.15f;
+                break;
+            case 2:
+                grade = 0.2f;
+                break;
+            case 3:
+                grade = 0.25f;
+                break;
+            case 4:
+                grade = 0.3f;
+                break;
+            case 5:
+                grade = 0.35f;
+                break;
+            case 6:
+                grade = 0.4f;
+                break;
+            case 7:
+                grade = 0.45f;
+                break;
+            case 8:
+                grade = 0.5f;
+                break;
+            default:
+                break;
+        }
+        return grade;
     }
 
     @Override
@@ -326,9 +414,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         handlerViewMessage(tIndex);
     }
 
-    int OpenPumTimeArray[] = {59, 66, 73, 88, 95, 102, 111, 118, 125, 132, 139}; /* OpenPumTimeArray*5  */
-    int StopPumTimeArray[] = {123, 130, 135, 140, 147, 156, 163, 170, 175, 184, 193};/* StopPumTimeArray*5  */
-    int PWMDutyArray[] = {92, 104, 114, 136, 142, 152, 162, 172, 182, 196, 205};
+    int OpenPumTimeArray[] = {65, 75, 87, 103, 113, 125, 135, 147, 161, 175, 253}; /* OpenPumTimeArray*5  */
+    int StopPumTimeArray[] = {125, 133, 141, 155, 161, 175, 183, 191, 205, 215, 253};/* StopPumTimeArray*5  */
+    int PWMDutyArray[] = {110, 116, 138, 150, 166, 180, 192, 204, 224, 236, 254};
+
+//    int OpenPumTimeArray[] = {59, 66, 73, 88, 95, 102, 111, 118, 125, 132, 139}; /* OpenPumTimeArray*5  */
+//    int StopPumTimeArray[] = {123, 130, 135, 140, 147, 156, 163, 170, 175, 184, 193};/* StopPumTimeArray*5  */
+//    int PWMDutyArray[] = {92, 104, 114, 136, 142, 152, 162, 172, 182, 196, 205};
 
     private void handlerViewMessage(int index) {
 

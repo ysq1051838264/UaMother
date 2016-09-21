@@ -24,11 +24,11 @@ public class PulsatorLayout extends RelativeLayout {
 
     public static final int INFINITE = 0;
 
-    private static final int DEFAULT_COUNT = 4;
+    private static final int DEFAULT_COUNT = 5;
     private static final int DEFAULT_COLOR = Color.rgb(0, 116, 193);
     private static final int DEFAULT_DURATION = 7000;
     private static final int DEFAULT_REPEAT = INFINITE;
-    private static final boolean DEFAULT_START_FROM_SCRATCH = true;
+    private static final boolean DEFAULT_START_FROM_SCRATCH = false;
 
     private int mCount;
     private int mDuration;
@@ -175,7 +175,7 @@ public class PulsatorLayout extends RelativeLayout {
             throw new IllegalArgumentException("Count cannot be negative");
         }
 
-        if (count != mCount) {
+        if (count == mCount) {
             mCount = count;
             reset();
             invalidate();
@@ -194,6 +194,10 @@ public class PulsatorLayout extends RelativeLayout {
 
         if (millis != mDuration) {
             mDuration = millis;
+
+
+
+
             reset();
             invalidate();
         }

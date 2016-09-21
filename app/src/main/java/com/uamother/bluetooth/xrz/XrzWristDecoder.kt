@@ -106,7 +106,7 @@ class XrzWristDecoder(commandSender: CommandSender) : WristDecoder(commandSender
     }
 
     override fun writeData(frequency: Int, comfort: Int, affinity: Int, flag: Int): Observable<Unit> = observe(cmd_write_data) {
-        //00是保存
+        //0a是保存
         val cmd = ProtocolHelper.mergeData(byteArrayOf(frequency.toByte(), comfort.toByte(), affinity.toByte()), flag.toByte());
         commandSender.send(cmd)
     }

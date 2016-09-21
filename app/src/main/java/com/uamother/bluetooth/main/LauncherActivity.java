@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
+import com.hdr.wristband.ble.WristBleService;
 import com.uamother.bluetooth.R;
+import com.uamother.bluetooth.other.SpHelper;
 import com.uamother.bluetooth.utils.CacheUtil;
 import com.uamother.bluetooth.utils.Constants;
 
@@ -15,6 +17,7 @@ import com.uamother.bluetooth.utils.Constants;
 public class LauncherActivity extends Activity {
 
     private long backStartTime;
+    SpHelper spHelper;
 
     @Override
     public void onBackPressed() {
@@ -32,6 +35,8 @@ public class LauncherActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher);
 
+        spHelper = SpHelper.initInstance(this);
+
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 initData();
@@ -40,6 +45,11 @@ public class LauncherActivity extends Activity {
     }
 
     private void initData() {
+        Intent intent = new Intent(this, WristBleService.class);
+        String mac = spHelper.getString(Constants.SP_KEY_CURRENT_MAC, "");
+        intent.putExtra(Constants.SP_KEY_CURRENT_MAC_VALUE,mac);
+        startService(intent);
+
         boolean isOpenGuide = CacheUtil.getCacheBooleanData(this, Constants.IS_OPEN_GUIDE, true);
 
         if (isOpenGuide) {

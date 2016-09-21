@@ -11,4 +11,8 @@ object StringUtils {
         }
         return sb.toString()
     }
+
+    fun isEmpty(str: String?): Boolean {
+        return str == null || str.isEmpty() || str.trim { it <= ' ' } == ""
+    }
 }

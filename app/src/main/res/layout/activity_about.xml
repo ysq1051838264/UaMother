@@ -34,14 +34,14 @@
                     android:textSize="16sp"
                     android:layout_gravity="center"
                     android:id="@+id/toolbar_title"/>
-
         </android.support.v7.widget.Toolbar>
 
         <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/personuser"
-                android:scaleType="fitXY"/>
+                android:src="@drawable/ua_mother_bg"
+                android:alpha="0.8"
+                android:scaleType="centerCrop"/>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

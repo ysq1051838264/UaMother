@@ -13,6 +13,8 @@ import com.hdr.wristband.ble.BleSubscriber
 import com.hdr.wristband.ble.WristBleService
 import com.hdr.wristband.model.BleDevice
 import com.hdr.wristband.utils.BleConst
+import com.uamother.bluetooth.other.SpHelper
+import com.uamother.bluetooth.utils.Constants
 import no.nordicsemi.android.support.v18.scanner.*
 import org.jetbrains.anko.toast
 import rx.Observable
@@ -54,7 +56,8 @@ class BlePresenter(val view: BleView) {
         val scanFilters = ArrayList<ScanFilter>()
 
         scanFilters.add(ScanFilter.Builder().setDeviceName("HMSoft").build())
-        scanFilters.add(ScanFilter.Builder().setServiceUuid(ParcelUuid( UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb"))).build())
+        scanFilters.add(ScanFilter.Builder().setDeviceName("uamother").build())
+        scanFilters.add(ScanFilter.Builder().setServiceUuid(ParcelUuid(UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb"))).build())
         return scanFilters
     }
 
@@ -96,7 +99,14 @@ class BlePresenter(val view: BleView) {
                 }
                 BleConst.ACTION_BLE_DISCOVERED -> {
                     Log.i("ysq", "连接成功")
+                    Toast.makeText(view.ctx, "母婴设备连接成功", Toast.LENGTH_SHORT).show()
+                    val address = intent.getStringExtra(BleConst.KEY_MAC)
+
                     view.connectSuccess()
+
+                    val editor = SpHelper.initInstance(view.ctx).configEditor
+                    editor.putString(Constants.SP_KEY_CURRENT_MAC, address)
+                    editor.apply()
                 }
                 ConnectivityManager.CONNECTIVITY_ACTION -> {
 

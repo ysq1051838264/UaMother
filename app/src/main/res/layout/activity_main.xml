@@ -72,6 +72,17 @@
             <ImageView
                     android:id="@+id/bluetoothClose"
                     android:src="@drawable/bluetooth_close"
+                    android:visibility="visible"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:id="@+id/bluetoothOpen"
+                    android:src="@drawable/bluetooth_connected"
                     android:visibility="gone"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="10dp"

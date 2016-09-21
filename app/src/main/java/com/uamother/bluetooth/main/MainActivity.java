@@ -27,11 +27,6 @@ import com.uamother.bluetooth.views.mScreenView;
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BlePresenter.BleView {
-
-//    int OpenPumTimeArray[] = {59, 66, 73, 88, 96, 103, 110, 118, 125, 133, 140}; /* OpenPumTimeArray*5  */
-//    int StopPumTimeArray[] = {123, 130, 135, 141, 147, 156, 163, 169, 175, 184, 192};/* StopPumTimeArray*5  */
-//    int PWMDutyArray[] = {92, 104, 114, 137, 142, 152, 162, 172, 182, 197, 205};
-
     //关于
     TextView aboutTv;
     Button saveBtn;
@@ -39,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //顶部
     ImageView imageView;
     ImageView bluetoothClose;
+    ImageView bluetoothOpen;
     RelativeLayout relativeLayout;
 
     //吸奶频率，舒适度，亲和力的显示值
@@ -145,6 +141,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void initData() {
         imageView = (ImageView) findViewById(R.id.imageView);
         bluetoothClose = (ImageView) findViewById(R.id.bluetoothClose);
+        bluetoothOpen = (ImageView) findViewById(R.id.bluetoothOpen);
+
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 
         leftView = (ScreenView) findViewById(R.id.screenView);
@@ -160,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             pulsator.setVisibility(View.GONE);
             relativeLayout.setVisibility(View.GONE);
             bluetoothClose.setVisibility(View.GONE);
+            bluetoothOpen.setVisibility(View.VISIBLE);
         }
 
         saveBtn = (Button) findViewById(R.id.saveBtn);
@@ -226,6 +225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pulsator.setVisibility(View.VISIBLE);
                 relativeLayout.setVisibility(View.VISIBLE);
                 bluetoothClose.setVisibility(View.GONE);
+                bluetoothOpen.setVisibility(View.VISIBLE);
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -235,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pulsator.setVisibility(View.GONE);
                 relativeLayout.setVisibility(View.GONE);
                 bluetoothClose.setVisibility(View.VISIBLE);
+                bluetoothOpen.setVisibility(View.GONE);
             }
         });
       /*  Button read = (Button) findViewById(R.id.readBtn);
@@ -269,6 +270,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pulsator.stop();
         relativeLayout.setVisibility(View.GONE);
         bluetoothClose.setVisibility(View.GONE);
+        bluetoothOpen.setVisibility(View.VISIBLE);
 
         if (blePresenter.getBleService() != null && blePresenter.getBleService().getWristDecoder() != null)
             blePresenter.getBleService().getWristDecoder().getSaveValue();

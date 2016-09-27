@@ -1,19 +1,20 @@
 package com.uamother.bluetooth.main;
 
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.*;
+import com.hdr.blelib.utils.BleUtils;
 import com.hdr.wristband.BlePresenter;
 import com.hdr.wristband.model.BleDevice;
+import com.hdr.wristband.utils.BleConst;
 import com.hdr.wristband.utils.StringUtils;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     PulsatorLayout pulsator;
 
+    MessageReceiver mMessageReceiver;
+
     int frequency = 66;
     int comfort = 129;
     int affinity = 103;
@@ -77,12 +80,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         backStartTime = now;
     }
 
+    String ACTION_BLE_CONNECTED = "action_ble_connected";
+    String ACTION_BLE_DISCOVERED = "action_ble_discovered";
+    String ACTION_BLE_RECEIVE_DATA = "action_ble_receive_data";
+    String ACTION_BLE_DISCONNECTED = "action_ble_disconnected";
+
+    public void registerMessageReceiver() {
+         mMessageReceiver = new MessageReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        intentFilter.addAction(ACTION_BLE_RECEIVE_DATA);
+        intentFilter.addAction(ACTION_BLE_CONNECTED);
+        intentFilter.addAction(ACTION_BLE_DISCONNECTED);
+        intentFilter.addAction(ACTION_BLE_DISCOVERED);
+
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+
+        registerReceiver(mMessageReceiver, intentFilter);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent == null) {
+                return;
+            }
+            String action = intent.getAction();
+            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+                initBleLogo();
+            } else if (action.equals("action_ble_connected")) {
+                String address = intent.getStringExtra("mac");
+                String g = spHelper.getString(Constants.SP_KEY_CURRENT_MAC, null);
+                if (g != null) {
+                    initBleLogo();
+                }
+            } else if (action.equals("action_ble_discovered")) {
+                String address = intent.getStringExtra("mac");
+                String g = spHelper.getString(Constants.SP_KEY_CURRENT_MAC, null);
+                if (g != null) {
+                    initBleLogo();
+                }
+            } else if (action.equals("action_ble_disconnected")) {
+                String address = intent.getStringExtra("mac");
+                String g = spHelper.getString(Constants.SP_KEY_CURRENT_MAC, null);
+                if (g != null) {
+                    initBleLogo();
+                }
+            }
+        }
+    }
+
+    void initBleLogo() {
+        if (BleUtils.isEnable(this)) {
+            //蓝牙变为了可用
+            bluetoothClose.setVisibility(View.GONE);
+            bluetoothOpen.setVisibility(View.VISIBLE);
+
+            blePresenter = new BlePresenter(this);
+            blePresenter.init();
+        } else {
+            bluetoothClose.setVisibility(View.VISIBLE);
+            bluetoothOpen.setVisibility(View.GONE);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         spHelper = SpHelper.initInstance(this);
+
+        registerMessageReceiver();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar);
         toolbar.setTitle("");
@@ -136,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy() {
         super.onDestroy();
         blePresenter.release();
+        unregisterReceiver(mMessageReceiver);
     }
 
     public void initData() {
@@ -157,8 +228,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             pulsator.stop();
             pulsator.setVisibility(View.GONE);
             relativeLayout.setVisibility(View.GONE);
-            bluetoothClose.setVisibility(View.GONE);
-            bluetoothOpen.setVisibility(View.VISIBLE);
         }
 
         saveBtn = (Button) findViewById(R.id.saveBtn);
@@ -224,8 +293,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pulsator.start();
                 pulsator.setVisibility(View.VISIBLE);
                 relativeLayout.setVisibility(View.VISIBLE);
-                bluetoothClose.setVisibility(View.GONE);
-                bluetoothOpen.setVisibility(View.VISIBLE);
             }
         });
         imageView.setOnClickListener(new View.OnClickListener() {

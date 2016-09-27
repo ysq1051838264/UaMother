@@ -7,7 +7,7 @@ object BleConst {
     val ACTION_BLE_SCAN = "action_ble_scan"
     val ACTION_BLE_SCAN_BIND = "action_ble_scan_bind"
 
-    val ACTION_BLE_CONNECTED = "action_ble_connected"
+     final val ACTION_BLE_CONNECTED = "action_ble_connected"
 
     val ACTION_BLE_DISCOVERED = "action_ble_discovered"
 

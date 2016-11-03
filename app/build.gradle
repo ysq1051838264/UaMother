@@ -22,7 +22,7 @@ android {
     defaultConfig {
         applicationId "com.uamother.bluetooth"
         minSdkVersion 18
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 2
         versionName "1.1"
     }
@@ -30,6 +30,11 @@ android {
     aaptOptions {
         cruncherEnabled = false
         useNewCruncher = false
+    }
+
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "8g"   //这个改大
     }
 
     compileOptions {
@@ -47,7 +52,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:appcompat-v7:23.2.0'
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:0.24.0'
 

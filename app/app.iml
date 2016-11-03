@@ -93,9 +93,9 @@
     <orderEntry type="library" exported="" name="rxandroid-0.24.0" level="project" />
     <orderEntry type="library" exported="" name="kotlin-stdlib-1.0.1-2" level="project" />
     <orderEntry type="library" exported="" name="anko-sdk15-0.8.2" level="project" />
-    <orderEntry type="library" exported="" name="kotlin-runtime-1.0.1-2" level="project" />
     <orderEntry type="library" exported="" name="rxjava-1.1.0" level="project" />
-    <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
+    <orderEntry type="library" exported="" name="kotlin-runtime-1.0.1-2" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="anko-recyclerview-v7-0.8.2" level="project" />
     <orderEntry type="library" exported="" name="anko-common-0.8.2" level="project" />
     <orderEntry type="library" exported="" name="anko-support-v4-0.8.2" level="project" />

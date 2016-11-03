@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String ACTION_BLE_DISCONNECTED = "action_ble_disconnected";
 
     public void registerMessageReceiver() {
-         mMessageReceiver = new MessageReceiver();
+        mMessageReceiver = new MessageReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         intentFilter.addAction(ACTION_BLE_RECEIVE_DATA);
@@ -485,7 +485,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     int OpenPumTimeArray[] = {65, 75, 87, 103, 113, 125, 135, 147, 161, 175, 253}; /* OpenPumTimeArray*5  */
     int StopPumTimeArray[] = {125, 133, 141, 155, 161, 175, 183, 191, 205, 215, 253};/* StopPumTimeArray*5  */
-    int PWMDutyArray[] = {110, 116, 138, 150, 166, 180, 192, 204, 224, 236, 254};
+    //    int PWMDutyArray[] = {110, 116, 138, 150, 166, 180, 192, 204, 224, 236, 254};
+    int PWMDutyArray[] = {115, 121, 143, 157, 173, 189, 201, 215, 235, 245, 255};
 
 //    int OpenPumTimeArray[] = {59, 66, 73, 88, 95, 102, 111, 118, 125, 132, 139}; /* OpenPumTimeArray*5  */
 //    int StopPumTimeArray[] = {123, 130, 135, 140, 147, 156, 163, 170, 175, 184, 193};/* StopPumTimeArray*5  */

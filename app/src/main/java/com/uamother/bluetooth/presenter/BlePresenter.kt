@@ -48,6 +48,9 @@ class BlePresenter(val view: BleView) {
             if (result.device.name?.isBlank() ?: true) {
                 return
             }
+
+            bleScanner.stopScan(this)
+
             connect(result.device)
         }
     }
@@ -60,13 +63,6 @@ class BlePresenter(val view: BleView) {
         scanFilters.add(ScanFilter.Builder().setServiceUuid(ParcelUuid(UUID.fromString("0000ffe0-0000-1000-8000-00805f9b34fb"))).build())
         return scanFilters
     }
-
-    val scanFilter: ScanFilter
-        get() {
-            return ScanFilter.Builder()
-                    .setDeviceAddress("88:4A:EA:14:F4:68")
-                    .build()
-        }
 
     internal var serviceConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
@@ -136,12 +132,18 @@ class BlePresenter(val view: BleView) {
     }
 
     fun startScan() {
+        val address = SpHelper.initInstance(view.ctx).getString(Constants.SP_KEY_CURRENT_MAC, null)
+
         if (!BleUtils.isEnable(view.ctx)) {
-            view.ctx.toast("蓝牙没有打开")
+//            view.ctx.toast("蓝牙没有打开")
             return
         }
         deviceList.clear()
-//        bleScanner.startScan(listOf(scanFilter), ScanSettings.Builder().build(), scanCallback)
+
+        if (address != null) {
+            val scanFilter = ScanFilter.Builder().setDeviceAddress(address).build()
+            bleScanner.startScan(listOf(scanFilter), ScanSettings.Builder().build(), scanCallback)
+        } else
         bleScanner.startScan(buildScanFilters(), ScanSettings.Builder().build(), scanCallback)
     }
 

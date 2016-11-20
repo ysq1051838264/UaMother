@@ -1,11 +1,14 @@
 package com.uamother.bluetooth.main;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.*;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,7 +18,10 @@ import com.hdr.blelib.utils.BleUtils;
 import com.hdr.wristband.BlePresenter;
 import com.hdr.wristband.model.BleDevice;
 import com.hdr.wristband.utils.StringUtils;
+import com.tbruyelle.rxpermissions.Permission;
 import com.uamother.bluetooth.R;
+import com.uamother.bluetooth.dialog.BaseDialog;
+import com.uamother.bluetooth.dialog.MessageDialog;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
 import com.uamother.bluetooth.other.SpHelper;
 import com.uamother.bluetooth.utils.CacheUtil;
@@ -131,9 +137,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //蓝牙变为了可用
             bluetoothClose.setVisibility(View.GONE);
             bluetoothOpen.setVisibility(View.VISIBLE);
-
-            blePresenter = new BlePresenter(this);
-            blePresenter.init();
         } else {
             bluetoothClose.setVisibility(View.VISIBLE);
             bluetoothOpen.setVisibility(View.GONE);
@@ -303,15 +306,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bluetoothOpen.setVisibility(View.GONE);
             }
         });
-      /*  Button read = (Button) findViewById(R.id.readBtn);
-        read.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (blePresenter.getBleService() != null && blePresenter.getBleService().getWristDecoder() != null)
-                    blePresenter.getBleService().getWristDecoder().getSaveValue();
-            }
-        });*/
-
     }
 
     @NotNull
@@ -532,8 +526,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (blueState) {
                     case BluetoothAdapter.STATE_TURNING_ON:
                         Log.e("ysq", "onReceive---------STATE_TURNING_ON");
-                        blePresenter = new BlePresenter(MainActivity.this);
-                        blePresenter.init();
+
                         break;
                     case BluetoothAdapter.STATE_ON:
                         Log.e("ysq", "onReceive---------STATE_ON");
@@ -542,6 +535,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         pulsator.start();
                         pulsator.setVisibility(View.VISIBLE);
                         relativeLayout.setVisibility(View.VISIBLE);
+
+                        if (blePresenter != null)
+                            blePresenter.startScan();
 
                         break;
                     case BluetoothAdapter.STATE_TURNING_OFF:

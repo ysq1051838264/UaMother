@@ -1,10 +1,12 @@
 package com.uamother.bluetooth.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.utils.StatusBarCompat;
@@ -12,8 +14,9 @@ import com.uamother.bluetooth.utils.StatusBarCompat;
 /**
  * Created by ysq on 16/7/23.
  */
-public class AboutActivity extends AppCompatActivity{
+public class AboutActivity extends AppCompatActivity {
     ImageView imageView;
+    RelativeLayout relativeLayout;
 
     private long backStartTime;
 
@@ -36,6 +39,13 @@ public class AboutActivity extends AppCompatActivity{
             }
         });
 
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AboutActivity.this,SaveImageActivity.class));
+            }
+        });
     }
 
     @Override

@@ -36,6 +36,12 @@
         </activity>
 
         <activity
+                android:name="com.uamother.bluetooth.main.SaveImageActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:screenOrientation="portrait">
+        </activity>
+
+        <activity
                 android:name="com.uamother.bluetooth.main.GuideActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
                 android:screenOrientation="portrait">

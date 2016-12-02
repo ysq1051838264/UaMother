@@ -19,8 +19,17 @@ android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
 
+    signingConfigs {
+        android_studio_app {
+            keyAlias 'ysq'
+            keyPassword '123456'
+            storeFile file('/Volumes/ms/my github/UaMother/ysq.jks')
+            storePassword '123456'
+        }
+    }
+
     defaultConfig {
-        applicationId "com.uamother.bluetooth"
+        applicationId "com.uamother.bluetooth.bluetooth"
         minSdkVersion 18
         targetSdkVersion 22
         versionCode 3

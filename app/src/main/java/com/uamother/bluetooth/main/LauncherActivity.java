@@ -52,11 +52,11 @@ public class LauncherActivity extends Activity {
 
         boolean isOpenGuide = CacheUtil.getCacheBooleanData(this, Constants.IS_OPEN_GUIDE, true);
 
-        if (isOpenGuide) {
-            startActivity(new Intent(this, GuideActivity.class));
-        } else {
+//        if (isOpenGuide) {
+//            startActivity(new Intent(this, GuideActivity.class));
+//        } else {
             startActivity(new Intent(this, MainActivity.class));
-        }
+//        }
         finish();
     }
 }

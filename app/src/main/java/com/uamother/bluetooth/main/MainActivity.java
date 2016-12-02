@@ -14,7 +14,6 @@ import android.widget.*;
 import com.hdr.blelib.utils.BleUtils;
 import com.hdr.wristband.BlePresenter;
 import com.hdr.wristband.model.BleDevice;
-import com.hdr.wristband.utils.BleConst;
 import com.hdr.wristband.utils.StringUtils;
 import com.uamother.bluetooth.R;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
@@ -86,9 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String ACTION_BLE_DISCONNECTED = "action_ble_disconnected";
 
     public void registerMessageReceiver() {
-         mMessageReceiver = new MessageReceiver();
+        mMessageReceiver = new MessageReceiver();
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         intentFilter.addAction(ACTION_BLE_RECEIVE_DATA);
         intentFilter.addAction(ACTION_BLE_CONNECTED);
         intentFilter.addAction(ACTION_BLE_DISCONNECTED);
@@ -102,14 +100,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public class MessageReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             if (intent == null) {
                 return;
             }
             String action = intent.getAction();
-            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
-                initBleLogo();
-            } else if (action.equals("action_ble_connected")) {
+            if (action.equals("action_ble_connected")) {
                 String address = intent.getStringExtra("mac");
                 String g = spHelper.getString(Constants.SP_KEY_CURRENT_MAC, null);
                 if (g != null) {
@@ -153,6 +148,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spHelper = SpHelper.initInstance(this);
 
         registerMessageReceiver();
+
+        registerReceiver(mReceiver, makeFilter());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.id_toolbar);
         toolbar.setTitle("");
@@ -207,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         blePresenter.release();
         unregisterReceiver(mMessageReceiver);
+        unregisterReceiver(mReceiver);
     }
 
     public void initData() {
@@ -485,7 +483,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     int OpenPumTimeArray[] = {65, 75, 87, 103, 113, 125, 135, 147, 161, 175, 253}; /* OpenPumTimeArray*5  */
     int StopPumTimeArray[] = {125, 133, 141, 155, 161, 175, 183, 191, 205, 215, 253};/* StopPumTimeArray*5  */
-    int PWMDutyArray[] = {110, 116, 138, 150, 166, 180, 192, 204, 224, 236, 254};
+    //    int PWMDutyArray[] = {110, 116, 138, 150, 166, 180, 192, 204, 224, 236, 254};
+    int PWMDutyArray[] = {115, 121, 143, 157, 173, 189, 201, 215, 235, 245, 255};
 
 //    int OpenPumTimeArray[] = {59, 66, 73, 88, 95, 102, 111, 118, 125, 132, 139}; /* OpenPumTimeArray*5  */
 //    int StopPumTimeArray[] = {123, 130, 135, 140, 147, 156, 163, 170, 175, 184, 193};/* StopPumTimeArray*5  */
@@ -515,4 +514,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initView();
     }
+
+    private IntentFilter makeFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        return filter;
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("ysq", "onReceive---------");
+            String s = intent.getAction();
+            if (s.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
+                int blueState = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, 0);
+                switch (blueState) {
+                    case BluetoothAdapter.STATE_TURNING_ON:
+                        Log.e("ysq", "onReceive---------STATE_TURNING_ON");
+                        blePresenter = new BlePresenter(MainActivity.this);
+                        blePresenter.init();
+                        break;
+                    case BluetoothAdapter.STATE_ON:
+                        Log.e("ysq", "onReceive---------STATE_ON");
+                        pulsator.setCount(5);
+                        pulsator.setDuration(7000);
+                        pulsator.start();
+                        pulsator.setVisibility(View.VISIBLE);
+                        relativeLayout.setVisibility(View.VISIBLE);
+
+                        break;
+                    case BluetoothAdapter.STATE_TURNING_OFF:
+                        Log.e("ysq", "onReceive---------STATE_TURNING_OFF");
+                        break;
+                    case BluetoothAdapter.STATE_OFF:
+                        Log.e("ysq", "onReceive---------STATE_OFF");
+                        pulsator.setCount(5);
+                        pulsator.setDuration(7000);
+                        pulsator.start();
+                        pulsator.setVisibility(View.VISIBLE);
+                        relativeLayout.setVisibility(View.VISIBLE);
+                        break;
+                }
+
+            }
+        }
+    };
 }

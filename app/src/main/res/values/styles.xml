@@ -12,7 +12,7 @@
     </style>
 
     <style name="LauncherActivityTheme" parent="@style/BaseAppTheme">
-        <item name="android:windowBackground">@drawable/launcher_again</item>
+        <item name="android:windowBackground">@drawable/launcher</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 

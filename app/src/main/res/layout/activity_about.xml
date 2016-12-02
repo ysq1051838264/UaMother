@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="web"
-                    android:text="www.uamother.com"
+                    android:text="www.uamother.cn"
                     android:gravity="right"
                     android:textSize="16dp"/>
         </LinearLayout>
@@ -97,7 +97,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="phone"
-                    android:text="0769-89212686"
+                    android:text="noble@uamother.com"
                     android:gravity="right"
                     android:textSize="16dp"/>
         </LinearLayout>
@@ -135,12 +135,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
-                    android:text="版本"/>
+                    android:text="版本号"/>
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Version 1.1"
+                    android:text="V 1.2"
                     android:gravity="right"
                     android:textColor="@android:color/holo_blue_light"
                     android:textSize="16dp"/>

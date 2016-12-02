@@ -64,369 +64,379 @@
             </com.uamother.bluetooth.views.PulsatorLayout>
         </RelativeLayout>
 
-        <RelativeLayout
+        <ScrollView
                 android:layout_width="match_parent"
-                android:background="@drawable/background"
-                android:layout_height="180dp">
+                android:layout_height="match_parent">
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_height="wrap_content">
 
-            <ImageView
-                    android:id="@+id/bluetoothClose"
-                    android:src="@drawable/bluetooth_close"
-                    android:visibility="visible"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:background="@drawable/background"
+                        android:layout_height="180dp">
 
-            <ImageView
-                    android:id="@+id/bluetoothOpen"
-                    android:src="@drawable/bluetooth_connected"
-                    android:visibility="gone"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    <ImageView
+                            android:id="@+id/bluetoothClose"
+                            android:src="@drawable/bluetooth_close"
+                            android:visibility="visible"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-            <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_height="170dp">
-                <com.uamother.bluetooth.views.ScreenView
-                        android:id="@+id/screenView"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="end"
-                        android:layout_height="match_parent"/>
+                    <ImageView
+                            android:id="@+id/bluetoothOpen"
+                            android:src="@drawable/bluetooth_connected"
+                            android:visibility="gone"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                <com.uamother.bluetooth.views.mScreenView
-                        android:id="@+id/mScreenView"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_gravity="start"
-                        android:layout_height="match_parent"/>
-            </LinearLayout>
+                    <LinearLayout
+                            android:layout_marginTop="8dp"
+                            android:layout_width="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_height="170dp">
+                        <com.uamother.bluetooth.views.ScreenView
+                                android:id="@+id/screenView"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_gravity="end"
+                                android:layout_height="match_parent"/>
 
-            <View
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:alpha="0.6"
-                    android:background="@color/bg_white"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"/>
-            <View
-                    android:layout_marginTop="60dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:alpha="0.6"
-                    android:background="@color/bg_white"
-                    android:layout_width="match_parent"
-                   android:layout_height="0.5dp"/>
-            <View
-                    android:layout_marginTop="90dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:alpha="0.6"
-                    android:background="@color/bg_white"
-                    android:layout_width="match_parent"
-                   android:layout_height="0.5dp"/>
-            <View
-                    android:layout_marginTop="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:alpha="0.6"
-                    android:background="@color/bg_white"
-                    android:layout_width="match_parent"
-                   android:layout_height="0.5dp"/>
+                        <com.uamother.bluetooth.views.mScreenView
+                                android:id="@+id/mScreenView"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_gravity="start"
+                                android:layout_height="match_parent"/>
+                    </LinearLayout>
 
-            <View
-                    android:layout_marginTop="150dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:alpha="0.6"
-                    android:background="@color/bg_white"
-                    android:layout_width="match_parent"
-                   android:layout_height="0.5dp"/>
-        </RelativeLayout>
+                    <View
+                            android:layout_marginTop="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:alpha="0.6"
+                            android:background="@color/bg_white"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+                    <View
+                            android:layout_marginTop="60dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:alpha="0.6"
+                            android:background="@color/bg_white"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+                    <View
+                            android:layout_marginTop="90dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:alpha="0.6"
+                            android:background="@color/bg_white"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+                    <View
+                            android:layout_marginTop="120dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:alpha="0.6"
+                            android:background="@color/bg_white"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
 
-        <TextView
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="12dp"
-                android:text="档位"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                    <View
+                            android:layout_marginTop="150dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:alpha="0.6"
+                            android:background="@color/bg_white"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+                </RelativeLayout>
 
-        <LinearLayout
-                android:orientation="horizontal"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
                 <TextView
-                        android:id="@+id/oneTv"
-                        android:text="一"
-                        android:background="@drawable/shape_circle_background"
-                        android:layout_gravity="center"
-                        android:gravity="center"
+                        android:layout_marginStart="27dp"
+                        android:layout_marginTop="12dp"
+                        android:text="档位"
                         android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
-            </LinearLayout>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/oneTv"
+                                android:text="一"
+                                android:background="@drawable/shape_circle_background"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/twoTv"
+                                android:text="二"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/threeTv"
+                                android:text="三"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/fourTv"
+                                android:text="四"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/fiveTv"
+                                android:text="五"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/sixTv"
+                                android:text="六"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/sevenTv"
+                                android:text="七"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/eightTv"
+                                android:text="八"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/nineTv"
+                                android:text="九"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                        android:layout_marginStart="27dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:text="前波"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:text="66"
+                            android:id="@+id/frequencyTv"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <com.uamother.bluetooth.other.DiscreteSeekBar
+                        android:id="@+id/discrete1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dsb_min="59"
+                        app:dsb_max="73"
+                        app:dsb_value="66"
+                        app:dsb_progressColor="#73b5f7"
+                        app:dsb_rippleColor="#FF73b5f7"
+                        app:dsb_indicatorColor="#73b5f7"/>
+
+
+                <RelativeLayout
+                        android:layout_marginStart="27dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:text="后波"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:text="129"
+                            android:id="@+id/comfortTv"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <com.uamother.bluetooth.other.DiscreteSeekBar
+                        android:id="@+id/discrete2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dsb_min="123"
+                        app:dsb_max="135"
+                        app:dsb_value="129"
+                        app:dsb_progressColor="#a8d67f"
+                        app:dsb_rippleColor="#FFa8d67f"
+                        app:dsb_indicatorColor="#a8d67f"/>
+
+                <RelativeLayout
+                        android:layout_marginStart="27dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:text="力度"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:text="103"
+                            android:id="@+id/affinityTv"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <com.uamother.bluetooth.other.DiscreteSeekBar
+                        android:id="@+id/discrete3"
+                        app:dsb_min="92"
+                        app:dsb_max="114"
+                        app:dsb_value="103"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:dsb_progressColor="#ea7270"
+                        app:dsb_rippleColor="#FFea7270"
+                        app:dsb_indicatorColor="#ea7270"/>
+
                 <TextView
-                        android:id="@+id/twoTv"
-                        android:text="二"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:id="@+id/saveBtn"
+                        style="@style/common_button_red"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="20dp"
+                        android:text="保存设置"/>
+
+                <!--      <Button
+                              android:id="@+id/saveBtn"
+                              android:layout_width="match_parent"
+                              android:layout_height="40dp"
+                              android:text="保存设置"/>
+                      <Button
+                              android:id="@+id/readBtn"
+                              android:layout_width="match_parent"
+                              android:layout_height="40dp"
+                              android:text="读取设置"/>-->
+
             </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/threeTv"
-                        android:text="三"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/fourTv"
-                        android:text="四"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/fiveTv"
-                        android:text="五"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/sixTv"
-                        android:text="六"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/sevenTv"
-                        android:text="七"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/eightTv"
-                        android:text="八"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content">
-                <TextView
-                        android:id="@+id/nineTv"
-                        android:text="九"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="@color/black"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <RelativeLayout
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    android:text="前波"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:text="66"
-                    android:id="@+id/frequencyTv"
-                    android:textColor="@color/black"
-                    android:layout_marginEnd="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </RelativeLayout>
-
-        <com.uamother.bluetooth.other.DiscreteSeekBar
-                android:id="@+id/discrete1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dsb_min="59"
-                app:dsb_max="73"
-                app:dsb_value="66"
-                app:dsb_progressColor="#73b5f7"
-                app:dsb_rippleColor="#FF73b5f7"
-                app:dsb_indicatorColor="#73b5f7"/>
-
-
-        <RelativeLayout
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    android:text="后波"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:text="129"
-                    android:id="@+id/comfortTv"
-                    android:textColor="@color/black"
-                    android:layout_marginEnd="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </RelativeLayout>
-
-        <com.uamother.bluetooth.other.DiscreteSeekBar
-                android:id="@+id/discrete2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dsb_min="123"
-                app:dsb_max="135"
-                app:dsb_value="129"
-                app:dsb_progressColor="#a8d67f"
-                app:dsb_rippleColor="#FFa8d67f"
-                app:dsb_indicatorColor="#a8d67f"/>
-
-        <RelativeLayout
-                android:layout_marginStart="27dp"
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    android:text="力度"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:text="103"
-                    android:id="@+id/affinityTv"
-                    android:textColor="@color/black"
-                    android:layout_marginEnd="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </RelativeLayout>
-
-        <com.uamother.bluetooth.other.DiscreteSeekBar
-                android:id="@+id/discrete3"
-                app:dsb_min="92"
-                app:dsb_max="114"
-                app:dsb_value="103"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dsb_progressColor="#ea7270"
-                app:dsb_rippleColor="#FFea7270"
-                app:dsb_indicatorColor="#ea7270"/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-        <Button
-                android:id="@+id/saveBtn"
-                style="@style/common_button_red"
-                android:layout_height="40dp"
-                android:layout_gravity="center_horizontal|bottom"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:text="保存设置"/>
-
-        <!--      <Button
-                      android:id="@+id/saveBtn"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:text="保存设置"/>
-              <Button
-                      android:id="@+id/readBtn"
-                      android:layout_width="match_parent"
-                      android:layout_height="40dp"
-                      android:text="读取设置"/>-->
+        </ScrollView>
     </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>

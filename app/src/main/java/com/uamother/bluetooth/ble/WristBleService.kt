@@ -54,6 +54,7 @@ class WristBleService : BleProfileService(), WristBleManager.WristBleCallback {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         var mac = intent?.getStringExtra(Constants.SP_KEY_CURRENT_MAC_VALUE);
+        if (mac != null)
             this.currentAddress = mac!!
 
         return super.onStartCommand(intent, flags, startId)

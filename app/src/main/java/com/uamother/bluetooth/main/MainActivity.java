@@ -1,27 +1,30 @@
 package com.uamother.bluetooth.main;
 
-import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.hdr.blelib.utils.BleUtils;
 import com.hdr.wristband.BlePresenter;
 import com.hdr.wristband.model.BleDevice;
 import com.hdr.wristband.utils.StringUtils;
-import com.tbruyelle.rxpermissions.Permission;
 import com.uamother.bluetooth.R;
-import com.uamother.bluetooth.dialog.BaseDialog;
-import com.uamother.bluetooth.dialog.MessageDialog;
 import com.uamother.bluetooth.other.DiscreteSeekBar;
 import com.uamother.bluetooth.other.SpHelper;
 import com.uamother.bluetooth.utils.CacheUtil;
@@ -30,18 +33,17 @@ import com.uamother.bluetooth.utils.StatusBarCompat;
 import com.uamother.bluetooth.views.PulsatorLayout;
 import com.uamother.bluetooth.views.ScreenView;
 import com.uamother.bluetooth.views.mScreenView;
+
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, BlePresenter.BleView {
     //关于
     TextView aboutTv;
     Button saveBtn;
-
     //顶部
     ImageView imageView;
     ImageView bluetoothClose;
     ImageView bluetoothOpen;
-    RelativeLayout relativeLayout;
 
     //吸奶频率，舒适度，亲和力的显示值
     TextView frequencyTv;
@@ -60,8 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DiscreteSeekBar frequencyBar;
     DiscreteSeekBar comfortBar;
     DiscreteSeekBar affinityBar;
-
-    PulsatorLayout pulsator;
 
     MessageReceiver mMessageReceiver;
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String address = intent.getStringExtra("mac");
                 String g = spHelper.getString(Constants.SP_KEY_CURRENT_MAC, null);
                 if (g != null) {
-                    initBleLogo();
+                    connected();
                 }
             } else if (action.equals("action_ble_discovered")) {
                 String address = intent.getStringExtra("mac");
@@ -132,15 +132,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    void connected() {
+        bluetoothClose.setVisibility(View.VISIBLE);
+        bluetoothOpen.setVisibility(View.GONE);
+    }
+
     void initBleLogo() {
-        if (BleUtils.isEnable(this)) {
-            //蓝牙变为了可用
-            bluetoothClose.setVisibility(View.GONE);
-            bluetoothOpen.setVisibility(View.VISIBLE);
-        } else {
-            bluetoothClose.setVisibility(View.VISIBLE);
-            bluetoothOpen.setVisibility(View.GONE);
-        }
+        bluetoothClose.setVisibility(View.VISIBLE);
+        bluetoothOpen.setVisibility(View.GONE);
     }
 
     @Override
@@ -215,21 +214,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bluetoothClose = (ImageView) findViewById(R.id.bluetoothClose);
         bluetoothOpen = (ImageView) findViewById(R.id.bluetoothOpen);
 
-        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
-
         leftView = (ScreenView) findViewById(R.id.screenView);
         rightView = (mScreenView) findViewById(R.id.mScreenView);
 
-        pulsator = (PulsatorLayout) findViewById(R.id.pulsator);
-
         String mac = spHelper.getString(Constants.SP_KEY_CURRENT_MAC, "");
-        if (StringUtils.INSTANCE.isEmpty(mac)) {
-            pulsator.start();
-        } else {
-            pulsator.stop();
-            pulsator.setVisibility(View.GONE);
-            relativeLayout.setVisibility(View.GONE);
-        }
 
         saveBtn = (Button) findViewById(R.id.saveBtn);
 
@@ -285,27 +273,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i = 0; i < 9; i++) {
             textViews[i].setOnClickListener(this);
         }
-
-        bluetoothClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pulsator.setCount(5);
-                pulsator.setDuration(7000);
-                pulsator.start();
-                pulsator.setVisibility(View.VISIBLE);
-                relativeLayout.setVisibility(View.VISIBLE);
-            }
-        });
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pulsator.stop();
-                pulsator.setVisibility(View.GONE);
-                relativeLayout.setVisibility(View.GONE);
-                bluetoothClose.setVisibility(View.VISIBLE);
-                bluetoothOpen.setVisibility(View.GONE);
-            }
-        });
     }
 
     @NotNull
@@ -326,8 +293,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void connectSuccess() {
         Log.i("ysq", "连接成功,关闭蓝牙扫描");
 
-        pulsator.stop();
-        relativeLayout.setVisibility(View.GONE);
         bluetoothClose.setVisibility(View.GONE);
         bluetoothOpen.setVisibility(View.VISIBLE);
 
@@ -457,7 +422,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 break;
         }
-
     }
 
     /**
@@ -477,15 +441,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     int OpenPumTimeArray[] = {65, 75, 87, 103, 113, 125, 135, 147, 161, 175, 253}; /* OpenPumTimeArray*5  */
     int StopPumTimeArray[] = {125, 133, 141, 155, 161, 175, 183, 191, 205, 215, 253};/* StopPumTimeArray*5  */
-    //    int PWMDutyArray[] = {110, 116, 138, 150, 166, 180, 192, 204, 224, 236, 254};
     int PWMDutyArray[] = {115, 121, 143, 157, 173, 189, 201, 215, 235, 245, 255};
 
-//    int OpenPumTimeArray[] = {59, 66, 73, 88, 95, 102, 111, 118, 125, 132, 139}; /* OpenPumTimeArray*5  */
-//    int StopPumTimeArray[] = {123, 130, 135, 140, 147, 156, 163, 170, 175, 184, 193};/* StopPumTimeArray*5  */
-//    int PWMDutyArray[] = {92, 104, 114, 136, 142, 152, 162, 172, 182, 196, 205};
-
     private void handlerViewMessage(int index) {
-
         frequencyBar.setMax(OpenPumTimeArray[index + 2]);
         frequencyBar.setMin(OpenPumTimeArray[index]);
         frequencyBar.setProgress(((OpenPumTimeArray[index + 2] + OpenPumTimeArray[index]) / 2));
@@ -516,7 +474,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.e("ysq", "onReceive---------");
@@ -526,30 +483,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (blueState) {
                     case BluetoothAdapter.STATE_TURNING_ON:
                         Log.e("ysq", "onReceive---------STATE_TURNING_ON");
-
                         break;
                     case BluetoothAdapter.STATE_ON:
                         Log.e("ysq", "onReceive---------STATE_ON");
-                        pulsator.setCount(5);
-                        pulsator.setDuration(7000);
-                        pulsator.start();
-                        pulsator.setVisibility(View.VISIBLE);
-                        relativeLayout.setVisibility(View.VISIBLE);
-
                         if (blePresenter != null)
                             blePresenter.startScan();
-
                         break;
                     case BluetoothAdapter.STATE_TURNING_OFF:
                         Log.e("ysq", "onReceive---------STATE_TURNING_OFF");
                         break;
                     case BluetoothAdapter.STATE_OFF:
                         Log.e("ysq", "onReceive---------STATE_OFF");
-                        pulsator.setCount(5);
-                        pulsator.setDuration(7000);
-                        pulsator.start();
-                        pulsator.setVisibility(View.VISIBLE);
-                        relativeLayout.setVisibility(View.VISIBLE);
                         break;
                 }
 

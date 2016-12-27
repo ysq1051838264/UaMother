@@ -41,7 +41,7 @@ public class LauncherActivity extends Activity {
             public void run() {
                 initData();
             }
-        }, 800);
+        }, 100);
     }
 
     private void initData() {

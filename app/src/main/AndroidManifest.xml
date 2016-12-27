@@ -1,53 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.uamother.bluetooth">
+    package="com.uamother.bluetooth">
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
     <application
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme">
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
 
-        <activity android:name="com.uamother.bluetooth.main.LauncherActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:theme="@style/LauncherActivityTheme"
-                  android:screenOrientation="portrait">
+        <activity
+            android:name="com.uamother.bluetooth.main.LauncherActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/LauncherActivityTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-                android:name="com.uamother.bluetooth.main.MainActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:screenOrientation="portrait"/>
+            android:name="com.uamother.bluetooth.main.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
 
         <activity
-                android:name="com.uamother.bluetooth.main.AboutActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:screenOrientation="portrait">
-        </activity>
+            android:name="com.uamother.bluetooth.main.AboutActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
-                android:name="com.uamother.bluetooth.main.SaveImageActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:screenOrientation="portrait">
-        </activity>
+            android:name="com.uamother.bluetooth.main.SaveImageActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
 
         <activity
-                android:name="com.uamother.bluetooth.main.GuideActivity"
-                android:configChanges="orientation|keyboardHidden|screenSize"
-                android:screenOrientation="portrait">
-        </activity>
+            android:name="com.uamother.bluetooth.main.GuideActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
 
-        <service android:name="com.hdr.wristband.ble.WristBleService"/>
+        <service android:name="com.hdr.wristband.ble.WristBleService" />
 
     </application>
 
